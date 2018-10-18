@@ -35,7 +35,7 @@ import java.util.logging.Logger;
 public class Wahlzeit implements ServletContextListener {
 
 	private static final Logger log = Logger.getLogger(Wahlzeit.class.getName());
-
+	
 	/**
 	 *
 	 */
