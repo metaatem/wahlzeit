@@ -96,6 +96,11 @@ public class Photo extends DataObject {
 	protected PhotoSize maxPhotoSize = PhotoSize.MEDIUM; // derived
 	
 	/**
+	 * Location association added HW03
+	 */
+	protected Location location; 
+	
+	/**
 	 *
 	 */
 	protected Tags tags = Tags.EMPTY_TAGS;
