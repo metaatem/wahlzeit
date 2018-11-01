@@ -24,13 +24,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.wahlzeit.services.EmailAddress;
 
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+
+
 public class EmailServiceTest {
 
-	EmailService emailService = null;
-	EmailAddress validAddress = null;
+	private EmailService emailService = null;
+	private EmailAddress validAddress = null;
+	
 
 	@Before
 	public void setup() throws Exception {
@@ -57,4 +61,15 @@ public class EmailServiceTest {
 			Assert.fail("Silent mode does not allow exceptions");
 		}
 	}
+	
+	/**
+	 * Testing that exception is thrown for invalid email
+	 * @throws MailingException
+	 */
+	@Test(expected = MailingException.class)
+	public void testSendMailInvalid() throws MailingException {
+		emailService.sendEmail(validAddress, null, "lol", "hi");
+		
+	}
+
 }

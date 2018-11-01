@@ -20,23 +20,38 @@
 
 package org.wahlzeit.services;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+
+import org.junit.Before;
+import org.junit.Test;
+
+
+//import junit.framework.TestCase;
 
 /**
  * Test cases for the EmailAddress class.
  */
-public class EmailAddressTest extends TestCase {
+public class EmailAddressTest {
 
-	/**
-	 *
-	 */
-	public EmailAddressTest(String name) {
-		super(name);
+	private EmailAddress dem1;
+	private EmailAddress dem2;
+	private EmailAddress dem3;
+	
+	@Before
+	public void setUp() {
+		dem1 = new EmailAddress("dummy.eins@dummy.de");
+		dem2 = new EmailAddress("dummy.zwei@dummy.de");
+		dem3 = new EmailAddress("");
 	}
-
+	
 	/**
 	 *
 	 */
+	@Test
 	public void testGetEmailAddressFromString() {
 		// invalid email addresses are allowed for local testing and online avoided by Google
 
@@ -62,9 +77,22 @@ public class EmailAddressTest extends TestCase {
 	/**
 	 *
 	 */
+	@Test
 	public void testEmptyEmailAddress() {
 		assertFalse(EmailAddress.EMPTY.isValid());
 	}
+	
+	/**
+	 * Test for method asInternetAddress() 
+	 */
+	@Test
+	public void testEmailAsInternetAddress() {
+		assertNotNull(dem1.asInternetAddress());
+		assertNotNull(dem2.asInternetAddress());
+		assertNull(dem3.asInternetAddress());
+	}
+	
+	
 
 }
 
