@@ -23,7 +23,8 @@ public class Coordinate {
 	
 	/**
 	 * Setter for Coordinate class to set x,y,z in one go.
-	 * 
+	 * @methodtyp set
+	 * @methodproperty primitive
 	 * @param x		x-coordinate
 	 * @param y		y-coordinate
 	 * @param z		z-coordinate
@@ -36,6 +37,8 @@ public class Coordinate {
 	
 	/**
 	 * Setter for x-coordinate
+	 * @methodtype set
+	 * @methodproperty primitive
 	 * @param x		x-coordinate
 	 */
 	protected void setX(double x) {
@@ -44,6 +47,8 @@ public class Coordinate {
 	
 	/**
 	 * Setter for y-coordinate
+	 * @methodtype set
+	 * @methodproperty primitive
 	 * @param y		y-coordinate
 	 */
 	protected void setY(double y) {
@@ -52,6 +57,8 @@ public class Coordinate {
 	
 	/**
 	 * Setter for z-coordinate
+	 * @methodtype set
+	 * @methodproperty primitive
 	 * @param z		z-coordinate
 	 */
 	protected void setZ(double z) {
@@ -60,6 +67,8 @@ public class Coordinate {
 	
 	/**
 	 * Getter to get x,y,z coordinates in one go
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @return		Array containing x,y,z
 	 */
 	protected double[] getXYZ(){
@@ -69,6 +78,8 @@ public class Coordinate {
 	
 	/**
 	 * Getter for x-coordinate
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @return	x-coordinate
 	 */
 	protected double getX() {
@@ -77,6 +88,8 @@ public class Coordinate {
 	
 	/**
 	 * Getter for x-coordinate
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @return	y-coordinate
 	 */
 	protected double getY() {
@@ -85,6 +98,8 @@ public class Coordinate {
 	
 	/**
 	 * Getter for x-coordinate
+	 * @methodtype get 
+	 * @methodproperty primitive
 	 * @return	z-coordinate
 	 */
 	protected double getZ() {
@@ -94,6 +109,8 @@ public class Coordinate {
 	
 	/**
 	 * Calculates distance from this coordinate to the coordinate c
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @param c		Coordinate the distance is calculated to 
 	 * @return 		Calculated distance
 	 */
@@ -105,6 +122,8 @@ public class Coordinate {
 	
 	/**
 	 * Comparing this coordinate with another coordinate c 
+	 * @methodtype comparision
+	 * @methodproperty primitive
 	 * @param c 	Coordinate this instance has to be compared with
 	 * @return		Boolean indicating whether equal or not
 	 */
@@ -120,6 +139,8 @@ public class Coordinate {
 	
 	/**
 	 * Doing the same as isEqual therefore forwarding to isEqual
+	 * @methodtype comparision
+	 * @methodproperty primitive
 	 * @param o 
 	 */
 	@Override

@@ -3,6 +3,7 @@ package org.wahlzeit.agents;
 import com.google.apphosting.api.ApiProxy;
 import org.wahlzeit.model.LanguageConfigs;
 import org.wahlzeit.model.ModelConfig;
+import org.wahlzeit.model.MountainPhotoManager;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.PhotoManager;

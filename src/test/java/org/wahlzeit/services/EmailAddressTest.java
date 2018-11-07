@@ -25,9 +25,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 
 //import junit.framework.TestCase;
@@ -40,13 +43,21 @@ public class EmailAddressTest {
 	private EmailAddress dem1;
 	private EmailAddress dem2;
 	private EmailAddress dem3;
+	private EmailAddress dem4;
 	
 	@Before
 	public void setUp() {
 		dem1 = new EmailAddress("dummy.eins@dummy.de");
 		dem2 = new EmailAddress("dummy.zwei@dummy.de");
 		dem3 = new EmailAddress("");
+		dem4 = EmailAddress.doGetFromString("");
 	}
+	
+	@AfterEach
+	public void tearDown() {
+		EmailAddress.instances.remove("");
+	}
+	
 	
 	/**
 	 *
@@ -83,7 +94,7 @@ public class EmailAddressTest {
 	}
 	
 	/**
-	 * Test for method asInternetAddress() 
+	 * Test for asInternetAddress() 
 	 */
 	@Test
 	public void testEmailAsInternetAddress() {
@@ -92,7 +103,34 @@ public class EmailAddressTest {
 		assertNull(dem3.asInternetAddress());
 	}
 	
+	/**
+	 * 
+	 */
+	@Test
+	public void testIsEqual() {
+		assertTrue(dem1.isEqual(dem1));
+		assertFalse(dem1.isEqual(dem2));
+	}
 	
+	/**
+	 *
+	 */
+	@Test
+	public void testIsEmpty() {
+		assertTrue(dem4.isEmpty());
+		assertFalse(dem3.isEmpty());
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void testIsValid() {
+		assertTrue(dem1.isValid());
+		assertTrue(dem2.isValid());
+		assertTrue(dem3.isValid());
+		assertFalse(dem4.isValid());
+	}
 
 }
 

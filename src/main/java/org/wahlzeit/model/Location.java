@@ -24,6 +24,8 @@ public class Location {
 	
 	/**
 	 * Comparing this coordinate with another coordinate c 
+	 * @methodtype comparison
+	 * @methodproperty regular
 	 * @param ll	Location this instance has to be compared with
 	 * @return		Boolean indicating whether equal or not
 	 */
@@ -37,6 +39,8 @@ public class Location {
 	
 	/**
 	 * Doing the same as isEqual therefore forwarding to isEqual
+	 * @methodtype comparison
+	 * @methodproperty regular
 	 * @param o 	Object to be compared with
 	 */
 	@Override
