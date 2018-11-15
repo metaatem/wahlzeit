@@ -15,7 +15,7 @@ public class MountainPhoto extends Photo {
 	}
 
 	/**
-	 * @methodtype constructor
+	 * @MethodType constructor
 	 */
 	public MountainPhoto(PhotoId myId) {
 		super(myId);
@@ -44,16 +44,16 @@ public class MountainPhoto extends Photo {
 	}
 	
 	/**
-	 * @methodtyp get
-	 * @methodproperty primitive
+	 * @MethodType get
+	 * @MethodProperty primitive
 	 */
 	public Mountain getMountain() {
 		return this.mount;
 	}
 	
 	/**
-	 * @methodtyp set
-	 * @methodproperty primitive
+	 * @MethodType set
+	 * @MethodProperty primitive
 	 * @param mount
 	 */
 	public void setMountain(Mountain mount) {

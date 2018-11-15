@@ -3,13 +3,13 @@ package org.wahlzeit.model;
 public class Location {
 
 	
-	protected Coordinate coordinate;
+	protected CartesianCoordinate coordinate;
 	
 	/**
 	 * Constructor initializing the coordinate variable
 	 * @param coordinate	Coordinate pinpointing location
 	 */
-	protected Location(Coordinate coordinate) {
+	protected Location(CartesianCoordinate coordinate) {
 		this.coordinate = coordinate;
 	}
 	
@@ -19,7 +19,7 @@ public class Location {
 	 * @return 		Double for Calculated distance
 	 */
 	protected double getDistance(Location ll) {
-		return this.coordinate.getDistance(ll.coordinate);
+		return this.coordinate.getCartesianDistance(ll.coordinate);
 	}
 	
 	/**

@@ -19,8 +19,8 @@ public class Mountain {
 	}
 	
 	/**
-	 * @methodtype get
-	 * @methodproperty primitive
+	 * @MethodType get
+	 * @MethodProperty primitive
 	 * @return
 	 */
 	public String getMountainName() {
@@ -28,8 +28,8 @@ public class Mountain {
 	}
 	
 	/**
-	 * @methodtype get
-	 * @methodproperty primitive
+	 * @MethodType get
+	 * @MethodProperty primitive
 	 * @return
 	 */
 	public int getMountainHeight() {
@@ -37,8 +37,8 @@ public class Mountain {
 	}
 	
 	/**
-	 * @methodtype set
-	 * @methodproperty primitve
+	 * @MethodType set
+	 * @MethodProperty primitve
 	 * @param mName
 	 */
 	public void setMountainName(String mName) {
@@ -46,8 +46,8 @@ public class Mountain {
 	}
 	
 	/**
-	 * @methodtype set
-	 * @methodproperty primitive
+	 * @MethodType set
+	 * @MethodProperty primitive
 	 * @param mHeight
 	 */
 	public void setMountainHeight(int mHeight) {

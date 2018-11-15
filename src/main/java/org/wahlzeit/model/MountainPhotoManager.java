@@ -15,7 +15,7 @@ public class MountainPhotoManager extends PhotoManager {
 	}
 	
 	/**
-	 * @methodtype get
+	 * @MethodType get
 	 */
 	public static MountainPhotoManager getInstance() {
 		return instance;
@@ -23,8 +23,8 @@ public class MountainPhotoManager extends PhotoManager {
 	
 	
 	/**
-	 * @methodtype get
-	 * @methodproperty regular
+	 * @MethodType get
+	 * @MethodProperty regular
 	 */
 	public Photo getPhotoFromId(PhotoId id) {
 		if (id == null) {

@@ -17,11 +17,11 @@ public class LocationTest {
 	
 	@Before
 	public void initLocation() {
-		location = new Location(new Coordinate(1,2,3));
+		location = new Location(new CartesianCoordinate(1,2,3));
 		dummy = new Dummy();
-		tl1 = new Location(new Coordinate(1,2,3));
-		tl2 = new Location(new Coordinate(4,5,6));
-		tl3 = new Location(new Coordinate(-4,-5,-6));
+		tl1 = new Location(new CartesianCoordinate(1,2,3));
+		tl2 = new Location(new CartesianCoordinate(4,5,6));
+		tl3 = new Location(new CartesianCoordinate(-4,-5,-6));
 	}
 	
 	@Test
@@ -30,14 +30,6 @@ public class LocationTest {
 		assertEquals(location.coordinate.getX(), 1, 0);
 		assertEquals(location.coordinate.getY(), 2, 0);
 		assertEquals(location.coordinate.getZ(), 3, 0);
-	}
-	
-	@Test 
-	public void testGetDistance() {
-		Coordinate this_coordinate = location.coordinate;
-		assertEquals(this_coordinate.getDistance(tl1.coordinate), 0 , 0);
-		assertEquals(this_coordinate.getDistance(tl2.coordinate), 5.196152422, 0.000000001);
-		assertEquals(this_coordinate.getDistance(tl3.coordinate), 12.4498996, 0.0000001);
 	}
 	
 	@Test 

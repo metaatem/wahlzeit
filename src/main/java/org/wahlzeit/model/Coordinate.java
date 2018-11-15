@@ -1,154 +1,17 @@
 package org.wahlzeit.model;
 
-import java.util.ArrayList;
-
-public class Coordinate {
+public interface Coordinate {
+	CartesianCoordinate asCartesianCoordinate();
 	
-	private double x;
-	private double y;
-	private double z;
+	double getCartesianDistance(Coordinate c);
 	
-	/**
-	 * Constructor for Coordinate class
-	 * 
-	 * @param x		x-coordinate
-	 * @param y		y-coordinate
-	 * @param z		z-coordinate
-	 */
-	protected Coordinate(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
+	CylindricalCoordinate asCylindricalCoordinate();
 	
-	/**
-	 * Setter for Coordinate class to set x,y,z in one go.
-	 * @methodtyp set
-	 * @methodproperty primitive
-	 * @param x		x-coordinate
-	 * @param y		y-coordinate
-	 * @param z		z-coordinate
-	 */
-	protected void setXYZ(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
+	SphericCoordinate asSphericCoordinate();
 	
-	/**
-	 * Setter for x-coordinate
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param x		x-coordinate
-	 */
-	protected void setX(double x) {
-		this.x = x;
-	}
+	double getCentralAngle(Coordinate c);
 	
-	/**
-	 * Setter for y-coordinate
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param y		y-coordinate
-	 */
-	protected void setY(double y) {
-		this.y = y;
-	}
+	boolean isEqual(Coordinate c);
 	
-	/**
-	 * Setter for z-coordinate
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param z		z-coordinate
-	 */
-	protected void setZ(double z) {
-		this.z = z;
-	}
-	
-	/**
-	 * Getter to get x,y,z coordinates in one go
-	 * @methodtype get
-	 * @methodproperty primitive
-	 * @return		Array containing x,y,z
-	 */
-	protected double[] getXYZ(){
-		double[] vector = new double[] {x,y,z};
-		return vector;
-	}
-	
-	/**
-	 * Getter for x-coordinate
-	 * @methodtype get
-	 * @methodproperty primitive
-	 * @return	x-coordinate
-	 */
-	protected double getX() {
-		return this.x;
-	}
-	
-	/**
-	 * Getter for x-coordinate
-	 * @methodtype get
-	 * @methodproperty primitive
-	 * @return	y-coordinate
-	 */
-	protected double getY() {
-		return this.y;
-	}
-	
-	/**
-	 * Getter for x-coordinate
-	 * @methodtype get 
-	 * @methodproperty primitive
-	 * @return	z-coordinate
-	 */
-	protected double getZ() {
-		return this.z;
-	}
-	
-	
-	/**
-	 * Calculates distance from this coordinate to the coordinate c
-	 * @methodtype get
-	 * @methodproperty primitive
-	 * @param c		Coordinate the distance is calculated to 
-	 * @return 		Calculated distance
-	 */
-	protected double getDistance(Coordinate c) {
-		return Math.sqrt(Math.pow(c.getX() - this.x, 2) 
-					+ Math.pow(c.getY() - this.y, 2) 
-					+ Math.pow(c.getZ() - this.z, 2) );
-	}
-	
-	/**
-	 * Comparing this coordinate with another coordinate c 
-	 * @methodtype comparision
-	 * @methodproperty primitive
-	 * @param c 	Coordinate this instance has to be compared with
-	 * @return		Boolean indicating whether equal or not
-	 */
-	protected boolean isEqual(Coordinate c) {
-		if(c == this) {
-			return true;
-		}
-		
-		return ( Double.compare(new Double(this.x), new Double(c.getX())) == 0 
-			&&   Double.compare(new Double(this.y), new Double(c.getY())) == 0
-			&&   Double.compare(new Double(this.z), new Double(c.getZ())) == 0 );
-	}
-	
-	/**
-	 * Doing the same as isEqual therefore forwarding to isEqual
-	 * @methodtype comparision
-	 * @methodproperty primitive
-	 * @param o 
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if( !(o instanceof Coordinate) ) {
-			return false;
-		}
-		return isEqual((Coordinate) o);
-	}
-
+	boolean equals(Object o);
 }

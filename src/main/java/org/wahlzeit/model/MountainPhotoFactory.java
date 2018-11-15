@@ -48,7 +48,7 @@ public class MountainPhotoFactory extends PhotoFactory {
 	}
 	
 	/**
-	 * @methodtype factory
+	 * @MethodType factory
 	 */
 	@Override
 	public Photo createPhoto() {
@@ -57,7 +57,7 @@ public class MountainPhotoFactory extends PhotoFactory {
 
 	/**
 	 * Creates a new photo with the specified id
-	 * @methodtype factory
+	 * @MethodType factory
 	 */
 	@Override
 	public Photo createPhoto(PhotoId id) {
