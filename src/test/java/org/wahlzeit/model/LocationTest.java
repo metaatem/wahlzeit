@@ -1,3 +1,13 @@
+/**
+ * LocationTest
+ * 
+ * 1.0
+ * 
+ * 28.10.2018
+ * 
+ * Copyright (c) by Patrick Lodes
+ */
+
 package org.wahlzeit.model;
 
 import static org.junit.Assert.*;

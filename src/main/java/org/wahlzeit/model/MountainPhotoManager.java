@@ -1,3 +1,13 @@
+/**
+ * MountainPhotoManager
+ * 
+ * 1.0
+ * 
+ * 07.11.2018
+ * 
+ * Copyright (c) by Patrick Lodes
+ */
+
 package org.wahlzeit.model;
 
 import java.util.logging.Logger;

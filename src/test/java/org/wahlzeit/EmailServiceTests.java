@@ -1,3 +1,12 @@
+/**
+ * EmailServiceTests
+ * 
+ * 1.0
+ * 
+ * 01.11.2018
+ * 
+ * Copyright (c) by Patrick Lodes
+ */
 package org.wahlzeit;
 
 

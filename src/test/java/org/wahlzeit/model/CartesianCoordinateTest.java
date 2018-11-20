@@ -1,3 +1,13 @@
+/**
+ * CartesianCoordinateTest
+ * 
+ * 1.0
+ * 
+ * 15.11.2018
+ * 
+ * Copyright (c) by Patrick Lodes
+ */
+
 package org.wahlzeit.model;
 
 import static org.junit.Assert.*;
