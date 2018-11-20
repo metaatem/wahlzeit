@@ -10,7 +10,7 @@
 
 package org.wahlzeit.model;
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate{
 	
 	/**
 	 * Spheric coordinate according to ISO convention used in physics
@@ -101,70 +101,35 @@ public class SphericCoordinate implements Coordinate{
 		return this.radius;
 	}
 	
+	
 	/**
-	 * Converts spheric coordinate into cartesian coordinate
-	 * See 'Cartesian Coordinates' at https://en.wikipedia.org/wiki/Spherical_coordinate_system
-	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public CartesianCoordinate asCartesianCoordinate() {
+	protected CartesianCoordinate basicAsCartesianCoordinate() {
 		return new CartesianCoordinate( (this.radius * Math.sin(this.theta) * Math.cos(this.phi)),
-										(this.radius * Math.sin(this.theta) * Math.sin(this.phi)),
-										(this.radius * Math.cos(this.theta))  );
-	}
-	
-	/**
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 */
-	public double getCartesianDistance(Coordinate c) {
-		return Math.sqrt( Math.pow(c.asCartesianCoordinate().getX() - this.asCartesianCoordinate().getX(), 2) 
-						+ Math.pow(c.asCartesianCoordinate().getY() - this.asCartesianCoordinate().getY(), 2) 
-						+ Math.pow(c.asCartesianCoordinate().getZ() - this.asCartesianCoordinate().getZ(), 2) );
-	}
-	
-	/**
-	 * @MethodType conversion
-	 * @MethodProperty primitive
-	 */
-	public CylindricalCoordinate asCylindricalCoordinate() {
-		return new CylindricalCoordinate( (this.radius * Math.sin(this.theta)),
-						this.phi, (this.radius * Math.cos(this.theta)) );
+				(this.radius * Math.sin(this.theta) * Math.sin(this.phi)),
+				(this.radius * Math.cos(this.theta))  );
 	}
 
 	/**
-	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public SphericCoordinate asSphericCoordinate() {
+	protected CylindricalCoordinate basicAsCylindricalCoordinate() {
+		return new CylindricalCoordinate( (this.radius * Math.sin(this.theta)),
+				this.phi, (this.radius * Math.cos(this.theta)) );
+	}
+
+	/**
+	 * @MethodProperty primitive
+	 */
+	protected SphericCoordinate basicAsSphericCoordinate() {
 		return this;
 	}
-	
-	/**
-	 * Calculates central angle based on longitude and latitude
-	 * See https://en.wikipedia.org/wiki/Great-circle_distance 
-	 * 
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 */
-	public double getCentralAngle(Coordinate c) {
-		double lat1 = this.theta;
-		double long1 = this.phi;
-		double lat2 = c.asSphericCoordinate().getTheta();
-		double long2 = c.asSphericCoordinate().getPhi();
 		
-		return Math.acos(Math.sin(lat1) * Math.sin(lat2)
-					+ Math.cos(lat1) * Math.cos(lat2) * Math.cos(Math.abs(long1 - long2)));
-	}
-	
 	/**
-	 * @MethodType comparison
 	 * @MethodProperty primitive
 	 */
-	public boolean isEqual(Coordinate c) {
-		if(c == this) {
-			return true;
-		}
+	protected boolean basicIsEqual(Coordinate c) {
 		return ( Double.compare(new Double(this.phi), new Double(c.asSphericCoordinate().getPhi())) == 0 
 			&&   Double.compare(new Double(this.theta), new Double(c.asSphericCoordinate().getTheta())) == 0
 			&&   Double.compare(new Double(this.radius), new Double(c.asSphericCoordinate().getRadius())) == 0 );

@@ -11,7 +11,7 @@
 package org.wahlzeit.model;
 
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 	
 	private double x;
 	private double y;
@@ -125,77 +125,34 @@ public class CartesianCoordinate implements Coordinate {
 		return this.z;
 	}
 	
-
 	/**
-	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public CartesianCoordinate asCartesianCoordinate() {
+	protected CartesianCoordinate basicAsCartesianCoordinate() {
 		return this;
 	}
-
-	/**
-	 * Calculates distance from this coordinate to the coordinate c
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 * @param c		Coordinate the distance is calculated to 
-	 * @return 		Calculated distance
-	 */
-	public double getCartesianDistance(Coordinate c) {
-		return Math.sqrt( Math.pow(c.asCartesianCoordinate().getX() - this.x, 2) 
-						+ Math.pow(c.asCartesianCoordinate().getY() - this.y, 2) 
-						+ Math.pow(c.asCartesianCoordinate().getZ() - this.z, 2) );
-	}
 	
 	/**
-	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public CylindricalCoordinate asCylindricalCoordinate() {
+	protected CylindricalCoordinate basicAsCylindricalCoordinate() {
 		return new CylindricalCoordinate( Math.sqrt(Math.pow(x, 2) + Math.pow(this.y, 2)),
-						Math.atan2(this.y, this.x), this.z);	
+				Math.atan2(this.y, this.x), this.z);	
 	}
-	
+
 	/**
-	 * Converts cartesian coordinate into spheric coordinate
-	 * See 'Cartesian Coordinates' at https://en.wikipedia.org/wiki/Spherical_coordinate_system
-	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public SphericCoordinate asSphericCoordinate() {
+	protected SphericCoordinate basicAsSphericCoordinate() {
 		return new SphericCoordinate( Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2)),
-								Math.acos( this.z / Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2))),
-								Math.atan2(this.y, this.x)  );
+				Math.acos( this.z / Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2))),
+				Math.atan2(this.y, this.x)  );
 	}
 
 	/**
-	 * Calculates central angle based on longitude and latitude
-	 * See https://en.wikipedia.org/wiki/Great-circle_distance
-	 * @MethodType get
 	 * @MethodProperty primitive
 	 */
-	public double getCentralAngle(Coordinate c) {
-		double lat1 = this.asSphericCoordinate().getTheta();
-		double long1 = this.asSphericCoordinate().getPhi();
-		double lat2 = c.asSphericCoordinate().getTheta();
-		double long2 = c.asSphericCoordinate().getPhi();
-		
-		return Math.acos(Math.sin(lat1) * Math.sin(lat2)
-				+ Math.cos(lat1) * Math.cos(lat2) * Math.cos(Math.abs(long1 - long2)));
-	}
-
-	/**
-	 * Comparing this coordinate with another coordinate c 
-	 * @MethodType comparison
-	 * @MethodProperty primitive
-	 * @param c 	Coordinate this instance has to be compared with
-	 * @return		Boolean indicating whether equal or not
-	 */
-	public boolean isEqual(Coordinate c) {
-		if(c == this) {
-			return true;
-		}
-		
+	protected boolean basicIsEqual(Coordinate c) {
 		return ( Double.compare(new Double(this.x), new Double(c.asCartesianCoordinate().getX())) == 0 
 			&&   Double.compare(new Double(this.y), new Double(c.asCartesianCoordinate().getY())) == 0
 			&&   Double.compare(new Double(this.z), new Double(c.asCartesianCoordinate().getZ())) == 0 );

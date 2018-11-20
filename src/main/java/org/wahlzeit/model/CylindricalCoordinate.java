@@ -10,7 +10,7 @@
 
 package org.wahlzeit.model;
 
-public class CylindricalCoordinate implements Coordinate{
+public class CylindricalCoordinate extends AbstractCoordinate {
 	
 	private double radius;
 	private double phi;
@@ -96,72 +96,32 @@ public class CylindricalCoordinate implements Coordinate{
 	
 	
 	/**
-	 * Converts cylindrical coordinate into cartesian coordinate
-	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public CartesianCoordinate asCartesianCoordinate() {
+	protected CartesianCoordinate basicAsCartesianCoordinate() {
 		return new CartesianCoordinate(this.radius * Math.cos(this.phi),
-						this.radius * Math.sin(this.phi), this.z);	
-	}
-
-	/**
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 */
-	public double getCartesianDistance(Coordinate c) {
-		return Math.sqrt( Math.pow(c.asCartesianCoordinate().getX() - this.asCartesianCoordinate().getX(), 2) 
-						+ Math.pow(c.asCartesianCoordinate().getY() - this.asCartesianCoordinate().getY(), 2) 
-						+ Math.pow(c.asCartesianCoordinate().getZ() - this.asCartesianCoordinate().getZ(), 2) );
+				this.radius * Math.sin(this.phi), this.z);	
 	}
 	
 	/**
-	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public CylindricalCoordinate asCylindricalCoordinate() {
+	protected CylindricalCoordinate basicAsCylindricalCoordinate() {
 		return this;
 	}
 	
 	/**
-	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public SphericCoordinate asSphericCoordinate() {
+	protected SphericCoordinate basicAsSphericCoordinate() {
 		return new SphericCoordinate( Math.sqrt(Math.pow(this.radius, 2) + Math.pow(this.z, 2)),
-						Math.atan2(this.radius, this.z), this.phi);
-	}
-
-	
-	/**
-	 * Calculates central angle based on longitude and latitude
-	 * See https://en.wikipedia.org/wiki/Great-circle_distance 
-	 * 
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 */
-	public double getCentralAngle(Coordinate c) {
-		double lat1 = this.asSphericCoordinate().getTheta();
-		double long1 = this.asSphericCoordinate().getPhi();
-		double lat2 = c.asSphericCoordinate().getTheta();
-		double long2 = c.asSphericCoordinate().getPhi();
-		
-		return Math.acos(Math.sin(lat1) * Math.sin(lat2)
-				+ Math.cos(lat1) * Math.cos(lat2) * Math.cos(Math.abs(long1 - long2)));
+				Math.atan2(this.radius, this.z), this.phi);
 	}
 
 	/**
-	 * Comparing this coordinate with another coordinate c 
-	 * @MethodType comparison
 	 * @MethodProperty primitive
-	 * @param c 	Coordinate this instance has to be compared with
-	 * @return		Boolean indicating whether equal or not
 	 */
-	public boolean isEqual(Coordinate c) {
-		if(c == this) {
-			return true;
-		}
-		
+	protected boolean basicIsEqual(Coordinate c) {
 		return ( Double.compare(new Double(this.radius), new Double(c.asCylindricalCoordinate().getRadius())) == 0 
 			&&   Double.compare(new Double(this.phi), new Double(c.asCylindricalCoordinate().getPhi())) == 0
 			&&   Double.compare(new Double(this.z), new Double(c.asCylindricalCoordinate().getZ())) == 0 );
