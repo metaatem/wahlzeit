@@ -12,6 +12,9 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.model.Photo;
 
+import com.googlecode.objectify.annotation.Subclass;
+
+@Subclass
 public class MountainPhoto extends Photo {
 	
 	
@@ -22,6 +25,7 @@ public class MountainPhoto extends Photo {
 	 */
 	public MountainPhoto() {
 		super();
+		this.mount = new Mountain("Mount Default", 4711);
 	}
 
 	/**
@@ -29,6 +33,7 @@ public class MountainPhoto extends Photo {
 	 */
 	public MountainPhoto(PhotoId myId) {
 		super(myId);
+		this.mount = new Mountain("Mount Default", 4711);
 	}
 	
 	

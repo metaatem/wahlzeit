@@ -17,12 +17,15 @@ public class MountainPhotoManager extends PhotoManager {
 	
 	protected static final MountainPhotoManager instance = new MountainPhotoManager();
 	
+	private static final Logger log = Logger.getLogger(MountainPhotoManager.class.getName());
+	
 	/**
 	 * constructor
 	 */
 	public MountainPhotoManager() {
 		photoTagCollector = MountainPhotoFactory.getInstance().createPhotoTagCollector();
 	}
+
 	
 	/**
 	 * @MethodType get
@@ -52,5 +55,4 @@ public class MountainPhotoManager extends PhotoManager {
 
 		return result;
 	}
-	
 }

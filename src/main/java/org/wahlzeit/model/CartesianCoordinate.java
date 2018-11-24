@@ -158,18 +158,4 @@ public class CartesianCoordinate extends AbstractCoordinate {
 			&&   Double.compare(new Double(this.z), new Double(c.asCartesianCoordinate().getZ())) == 0 );
 	}
 	
-	/**
-	 * Doing the same as isEqual therefore forwarding to isEqual
-	 * @MethodType comparison
-	 * @MethodProperty primitive
-	 * @param o 
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if( !(o instanceof Coordinate) ) {
-			return false;
-		}
-		return isEqual((Coordinate) o);
-	}
-	
 }

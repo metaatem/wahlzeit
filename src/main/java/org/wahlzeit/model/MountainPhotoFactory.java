@@ -37,10 +37,10 @@ public class MountainPhotoFactory extends PhotoFactory {
 	/**
 	 * Public singleton access method.
 	 */
-	public static synchronized MountainPhotoFactory getInstance() {
+	public static synchronized PhotoFactory getInstance() {
 		if (instance == null) {
 			log.config(LogBuilder.createSystemMessage().addAction("setting MountainPhotoFactory").toString());
-			setInstance(new MountainPhotoFactory());
+			MountainPhotoFactory.setInstance(new MountainPhotoFactory());
 		}
 
 		return instance;
@@ -72,6 +72,14 @@ public class MountainPhotoFactory extends PhotoFactory {
 	@Override
 	public Photo createPhoto(PhotoId id) {
 		return new MountainPhoto(id);
+	}
+	
+	/**
+	 * Creates new photo with Mountain object
+	 * @MethodType factory
+	 */
+	public Photo createPhoto(Mountain mountain) {
+		return new MountainPhoto(mountain);
 	}
 
 	/**

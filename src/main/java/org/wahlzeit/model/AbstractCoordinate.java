@@ -110,5 +110,18 @@ public abstract class AbstractCoordinate implements Coordinate{
 	protected abstract boolean basicIsEqual(Coordinate c);
 	
 	
+	/**
+	 * Doing the same as isEqual therefore forwarding to isEqual
+	 * @MethodType comparison
+	 * @MethodProperty primitive
+	 * @param o 
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if( !(o instanceof Coordinate) ) {
+			return false;
+		}
+		return isEqual((Coordinate) o);
+	}
 	
 }
