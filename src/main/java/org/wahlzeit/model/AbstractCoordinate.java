@@ -10,18 +10,17 @@
 
 package org.wahlzeit.model;
 
-public abstract class AbstractCoordinate implements Coordinate{
+import java.util.HashMap;
+import java.util.Map;
+
+public abstract class AbstractCoordinate implements Coordinate {
 	
 	/**
 	 * Converts cylindrical coordinate into cartesian coordinate
 	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public CartesianCoordinate asCartesianCoordinate() {
-		return basicAsCartesianCoordinate();
-	}
-	
-	protected abstract CartesianCoordinate basicAsCartesianCoordinate();
+	public abstract CartesianCoordinate asCartesianCoordinate();
 
 	
 	/**
@@ -29,18 +28,12 @@ public abstract class AbstractCoordinate implements Coordinate{
 	 * @MethodProperty primitive
 	 */
 	public double getCartesianDistance(Coordinate c) {
-		return doGetCartesianDistance(c);
-	}
-	
-	/**
-	 * @MethodProperty primitive
-	 * @param c
-	 * @return
-	 */
-	protected double doGetCartesianDistance(Coordinate c) {
+		assertNotNull(c);
+		assertValidCoordinate(c);
+		
 		return Math.sqrt( Math.pow(c.asCartesianCoordinate().getX() - this.asCartesianCoordinate().getX(), 2) 
-						+ Math.pow(c.asCartesianCoordinate().getY() - this.asCartesianCoordinate().getY(), 2) 
-						+ Math.pow(c.asCartesianCoordinate().getZ() - this.asCartesianCoordinate().getZ(), 2) );
+				+ Math.pow(c.asCartesianCoordinate().getY() - this.asCartesianCoordinate().getY(), 2) 
+				+ Math.pow(c.asCartesianCoordinate().getZ() - this.asCartesianCoordinate().getZ(), 2) );
 	}
 	
 	
@@ -48,11 +41,7 @@ public abstract class AbstractCoordinate implements Coordinate{
 	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public CylindricalCoordinate asCylindricalCoordinate() {
-		return basicAsCylindricalCoordinate();
-	}
-	
-	protected abstract CylindricalCoordinate basicAsCylindricalCoordinate();
+	public abstract CylindricalCoordinate asCylindricalCoordinate();
 	
 	
 	/**
@@ -61,11 +50,7 @@ public abstract class AbstractCoordinate implements Coordinate{
 	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public SphericCoordinate asSphericCoordinate() {
-		return basicAsSphericCoordinate();
-	}
-	
-	protected abstract SphericCoordinate basicAsSphericCoordinate();
+	public abstract SphericCoordinate asSphericCoordinate();
 	
 	
 	/**
@@ -75,13 +60,9 @@ public abstract class AbstractCoordinate implements Coordinate{
 	 * @MethodProperty primitive
 	 */
 	public double getCentralAngle(Coordinate c) {
-		return doGetCentralAngle(c);
-	}
-	
-	/**
-	 * @MethodProperty primitive
-	 */
-	protected double doGetCentralAngle(Coordinate c) {
+		assertNotNull(c);
+		assertValidCoordinate(c);
+		
 		double lat1 = this.asSphericCoordinate().getTheta();
 		double long1 = this.asSphericCoordinate().getPhi();
 		double lat2 = c.asSphericCoordinate().getTheta();
@@ -98,16 +79,12 @@ public abstract class AbstractCoordinate implements Coordinate{
 	 * @MethodProperty primitive
 	 * @param c 	Coordinate this instance has to be compared with
 	 * @return		Boolean indicating whether equal or not
+	 * @throws UnknownCoordinateTypeException 
+	 * @throws InvalidCoordinateException 
+	 * @throws  
+	 * @throws InvalidCoordinateException 
 	 */
-	public boolean isEqual(Coordinate c) {
-		if(c == this) {
-			return true;
-		}
-		
-		return basicIsEqual(c);
-	}
-	
-	protected abstract boolean basicIsEqual(Coordinate c);
+	public abstract boolean isEqual(Coordinate c);
 	
 	
 	/**
@@ -122,6 +99,72 @@ public abstract class AbstractCoordinate implements Coordinate{
 			return false;
 		}
 		return isEqual((Coordinate) o);
+	}
+	
+	
+	
+	/**
+	 * @MethodType assertion
+	 * @param c coordinate
+	 */
+	protected void assertValidCoordinate(Coordinate c) {
+		
+		if(!(c instanceof CartesianCoordinate)
+			&& !(c instanceof CylindricalCoordinate)
+			&& !(c instanceof SphericCoordinate)){
+			throw new IllegalArgumentException("Unknown coordinate-subtype");
+		}
+	}
+	
+	/**
+	 * @MethodType assertion
+	 * @param c
+	 */
+	protected void assertNotNull(Object c) {
+		if(c == null) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	
+	/**
+	 * @MethodType assertion
+	 * @param d
+	 */
+	protected void assertValidDouble(double d) {
+		if(d == Double.NaN){
+			throw new IllegalArgumentException("Argument is NaN instead of double");
+		}
+		
+		if(d == Double.NEGATIVE_INFINITY) {
+			throw new IllegalArgumentException("Argument is negative infinite instead of double");
+		}
+		
+		if(d == Double.POSITIVE_INFINITY) {
+			throw new IllegalArgumentException("Argument is positive infinite instead of double");
+		}
+	}
+	
+	/**
+	 * @MethodType assertion
+	 * @param theta
+	 */
+	protected void assertTheta(double theta) {
+		assertValidDouble(theta);
+		if( (((-1) * (Math.PI / 2)) > theta) && (theta > (Math.PI / 2)) ) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	/**
+	 * @MethodType assertion
+	 * @param phi
+	 */
+	protected void assertPhi(double phi) {
+		assertValidDouble(phi);
+		if( (((-1) * Math.PI) > phi) && (phi > Math.PI) ) {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 }

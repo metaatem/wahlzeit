@@ -12,6 +12,15 @@ package org.wahlzeit.model;
 
 public class CylindricalCoordinate extends AbstractCoordinate {
 	
+	/**
+	 * Cylindrical coordinate
+	 * phi - azimuth signed angle measured from the azimuth reference direction to
+	 *       the orthogonal projection of the line segment OP on the reference plane 
+	 *       (associated with latitude / geographische Laenge )
+	 * radius - distance to point in xy-plane
+	 * z - height of the point
+	 */
+	
 	private double radius;
 	private double phi;
 	private double z;
@@ -25,6 +34,10 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @param z
 	 */
 	public CylindricalCoordinate(double radius, double phi, double z) {
+		assertValidDouble(radius);
+		assertPhi(phi);
+		assertValidDouble(z);
+		
 		this.phi = phi;
 		this.radius = radius;
 		this.z = z;
@@ -46,6 +59,8 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @param x		x-coordinate
 	 */
 	protected void setPhi(double phi) {
+		assertPhi(phi);
+		
 		this.phi = phi;
 	}
 	
@@ -55,6 +70,8 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @param y		y-coordinate
 	 */
 	protected void setRadius(double radius) {
+		assertValidDouble(radius);
+		
 		this.radius = radius;
 	}
 	
@@ -64,6 +81,8 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @param z		z-coordinate
 	 */
 	protected void setZ(double z) {
+		assertValidDouble(z);
+		
 		this.z = z;
 	}
 	
@@ -96,35 +115,57 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	
 	
 	/**
+	 * Converts cylindrical coordinate into cartesian coordinate
+	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	protected CartesianCoordinate basicAsCartesianCoordinate() {
-		return new CartesianCoordinate(this.radius * Math.cos(this.phi),
-				this.radius * Math.sin(this.phi), this.z);	
+	public CartesianCoordinate asCartesianCoordinate() {
+		return basicAsCartesianCoordinate();
 	}
 	
 	/**
 	 * @MethodProperty primitive
 	 */
-	protected CylindricalCoordinate basicAsCylindricalCoordinate() {
+	private CartesianCoordinate basicAsCartesianCoordinate() {
+		return new CartesianCoordinate(this.radius * Math.cos(this.phi),
+				this.radius * Math.sin(this.phi), this.z);
+	}
+	
+	/**
+	 * Trivial conversion
+	 * @MethodType conversion
+	 * @MethodProperty primitive
+	 */
+	public CylindricalCoordinate asCylindricalCoordinate() {
 		return this;
 	}
 	
 	/**
 	 * @MethodProperty primitive
 	 */
-	protected SphericCoordinate basicAsSphericCoordinate() {
+	public SphericCoordinate asSphericCoordinate() {
+		return basicAsSphericCoordinate();
+	}
+	
+	private SphericCoordinate basicAsSphericCoordinate() {
 		return new SphericCoordinate( Math.sqrt(Math.pow(this.radius, 2) + Math.pow(this.z, 2)),
 				Math.atan2(this.radius, this.z), this.phi);
 	}
 
 	/**
+	 * Comparing this coordinate with another coordinate c 
+	 * @MethodType comparison
 	 * @MethodProperty primitive
+	 * @param c 	Coordinate this instance has to be compared with
+	 * @return		Boolean indicating whether equal or not
 	 */
-	protected boolean basicIsEqual(Coordinate c) {
+	public boolean isEqual(Coordinate c) {
+		assertNotNull(c);
+		assertValidCoordinate(c);
+		
 		return ( Double.compare(new Double(this.radius), new Double(c.asCylindricalCoordinate().getRadius())) == 0 
 			&&   Double.compare(new Double(this.phi), new Double(c.asCylindricalCoordinate().getPhi())) == 0
 			&&   Double.compare(new Double(this.z), new Double(c.asCylindricalCoordinate().getZ())) == 0 );
 	}
-
+	
 }

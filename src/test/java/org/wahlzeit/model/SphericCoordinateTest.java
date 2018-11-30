@@ -179,6 +179,7 @@ public class SphericCoordinateTest {
 		assertEquals(c1.getPhi(), c2.getPhi(), 0.000000001);
 		assertEquals(c1.getZ(), c2.getZ(), 0.000000001);
 	}
+	
 	@Test
 	public void testAsCylindricalCoordinate() {
 		helpAssertCylindrical(cyl1, sph1.asCylindricalCoordinate());

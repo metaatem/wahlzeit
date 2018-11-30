@@ -10,7 +10,6 @@
 
 package org.wahlzeit.model;
 
-
 public class CartesianCoordinate extends AbstractCoordinate {
 	
 	private double x;
@@ -25,6 +24,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param z		z-coordinate
 	 */
 	protected CartesianCoordinate(double x, double y, double z) {
+		assertValidDouble(x);
+		assertValidDouble(y);
+		assertValidDouble(z);
+		
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -49,6 +52,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param z		z-coordinate
 	 */
 	protected void setXYZ(double x, double y, double z) {
+		assertValidDouble(x);
+		assertValidDouble(y);
+		assertValidDouble(z);
+		
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -61,6 +68,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param x		x-coordinate
 	 */
 	protected void setX(double x) {
+		assertValidDouble(x);
+		
 		this.x = x;
 	}
 	
@@ -71,6 +80,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param y		y-coordinate
 	 */
 	protected void setY(double y) {
+		assertValidDouble(y);
+		
 		this.y = y;
 	}
 	
@@ -81,6 +92,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param z		z-coordinate
 	 */
 	protected void setZ(double z) {
+		assertValidDouble(z);
+		
 		this.z = z;
 	}
 	
@@ -125,21 +138,43 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return this.z;
 	}
 	
+	
 	/**
+	 * Trivial conversion
+	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	protected CartesianCoordinate basicAsCartesianCoordinate() {
+	public CartesianCoordinate asCartesianCoordinate() {
 		return this;
+	}
+	
+	/**
+	 * Converts cartesian coordinate into cylindrical coordinate
+	 * @MethodType conversion
+	 * @MethodProperty primitive
+	 */
+	public CylindricalCoordinate asCylindricalCoordinate() {
+		return basicAsCylindricalCoordinate();
 	}
 	
 	/**
 	 * @MethodProperty primitive
 	 */
 	protected CylindricalCoordinate basicAsCylindricalCoordinate() {
-		return new CylindricalCoordinate( Math.sqrt(Math.pow(x, 2) + Math.pow(this.y, 2)),
+		return new CylindricalCoordinate( Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)),
 				Math.atan2(this.y, this.x), this.z);	
 	}
 
+	/**
+	 * Converts cartesian coordinate into spheric coordinate
+	 * See 'Cartesian Coordinates' at https://en.wikipedia.org/wiki/Spherical_coordinate_system
+	 * @MethodType conversion
+	 * @MethodProperty primitive
+	 */
+	public SphericCoordinate asSphericCoordinate() {
+		return basicAsSphericCoordinate();
+	}
+	
 	/**
 	 * @MethodProperty primitive
 	 */
@@ -150,9 +185,18 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	/**
+	 * Comparing this coordinate with another coordinate c 
+	 * @MethodType comparison
 	 * @MethodProperty primitive
+	 * @param c 	Coordinate this instance has to be compared with
+	 * @return		Boolean indicating whether equal or not
+	 * @throws UnknownCoordinateTypeException 
+	 * @throws InvalidCoordinateException 
 	 */
-	protected boolean basicIsEqual(Coordinate c) {
+	public boolean isEqual(Coordinate c) {
+		assertNotNull(c);
+		assertValidCoordinate(c);
+		
 		return ( Double.compare(new Double(this.x), new Double(c.asCartesianCoordinate().getX())) == 0 
 			&&   Double.compare(new Double(this.y), new Double(c.asCartesianCoordinate().getY())) == 0
 			&&   Double.compare(new Double(this.z), new Double(c.asCartesianCoordinate().getZ())) == 0 );
