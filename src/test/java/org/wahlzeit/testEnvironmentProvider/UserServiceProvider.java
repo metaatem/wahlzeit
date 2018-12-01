@@ -20,7 +20,7 @@ public class UserServiceProvider extends ExternalResource {
 	}
 
 	@Override
-	protected void after() {
+	protected void after(){
 		super.after();
 	}
 }
