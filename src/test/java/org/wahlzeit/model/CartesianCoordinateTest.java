@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.wahlzeit.exceptions.CoordinateException;
+import org.wahlzeit.exceptions.InvalidCoordinateValueException;
 
 
 
@@ -75,54 +77,56 @@ public class CartesianCoordinateTest {
 	
 	@Before
 	public void initCoordinate() {
-		
-		coordinate = new CartesianCoordinate(1,2,3);
-		dCar1 = new CartesianCoordinate(1,2,3);
-		dCar2 = new CartesianCoordinate(4,5,6);
-		dCar3 = new CartesianCoordinate(-4,-5,-6);
-		
-		dummy = new Dummy();
-
-		// x,y = 0
-		carsq1 = new CartesianCoordinate(0,0,1);
-		carsq2 = new CartesianCoordinate(0,0,-1);
-		sph1 = new SphericCoordinate(1, 0, 0);
-		sph2 = new SphericCoordinate(1, _PI, 0);
-		cyl1 = new CylindricalCoordinate(0,0,1);
-		cyl2 = new CylindricalCoordinate(0,0,-1);
-		
-		// y = 0 
-		carsq3 = new CartesianCoordinate(1,0,1);
-		carsq4 = new CartesianCoordinate(-1,0,-1);
-		sph3 = new SphericCoordinate(_root2, _quarter_PI, 0);
-		sph4 = new SphericCoordinate(_root2, _3Quarter_PI, _PI);
-		cyl3 = new CylindricalCoordinate(1,0,1);
-		cyl4 = new CylindricalCoordinate(1, _PI ,-1);
+		try {
+			coordinate = new CartesianCoordinate(1,2,3);
+			dCar1 = new CartesianCoordinate(1,2,3);
+			dCar2 = new CartesianCoordinate(4,5,6);
+			dCar3 = new CartesianCoordinate(-4,-5,-6);
+			
+			dummy = new Dummy();
 	
-		// x = 0
-		carsq5 = new CartesianCoordinate(0,1,-1);
-		carsq6 = new CartesianCoordinate(0,-1,1);
-		sph5 = new SphericCoordinate(_root2, _3Quarter_PI, _half_PI);
-		sph6 = new SphericCoordinate(_root2, _quarter_PI, _nHalf_PI);
-		cyl5 = new CylindricalCoordinate(1, _half_PI, -1);
-		cyl6 = new CylindricalCoordinate(1, _nHalf_PI, 1);
+			// x,y = 0
+			carsq1 = new CartesianCoordinate(0,0,1);
+			carsq2 = new CartesianCoordinate(0,0,-1);
+			sph1 = new SphericCoordinate(1, 0, 0);
+			sph2 = new SphericCoordinate(1, _PI, 0);
+			cyl1 = new CylindricalCoordinate(0,0,1);
+			cyl2 = new CylindricalCoordinate(0,0,-1);
+			
+			// y = 0 
+			carsq3 = new CartesianCoordinate(1,0,1);
+			carsq4 = new CartesianCoordinate(-1,0,-1);
+			sph3 = new SphericCoordinate(_root2, _quarter_PI, 0);
+			sph4 = new SphericCoordinate(_root2, _3Quarter_PI, _PI);
+			cyl3 = new CylindricalCoordinate(1,0,1);
+			cyl4 = new CylindricalCoordinate(1, _PI ,-1);
 		
-		// x,y,z > 0, 1. and 3. quadrant
-		carsq7 = new CartesianCoordinate(1,1,1);
-		carsq8 = new CartesianCoordinate(-1,-1,-1);
-		sph7 = new SphericCoordinate(_root3, 0.9553166181, _quarter_PI);
-		sph8 = new SphericCoordinate(_root3, 2.186276035, _n3Quarter_PI);
-		cyl7 = new CylindricalCoordinate(_root2, _quarter_PI, 1);
-		cyl8 = new CylindricalCoordinate(_root2, _n3Quarter_PI, -1);
+			// x = 0
+			carsq5 = new CartesianCoordinate(0,1,-1);
+			carsq6 = new CartesianCoordinate(0,-1,1);
+			sph5 = new SphericCoordinate(_root2, _3Quarter_PI, _half_PI);
+			sph6 = new SphericCoordinate(_root2, _quarter_PI, _nHalf_PI);
+			cyl5 = new CylindricalCoordinate(1, _half_PI, -1);
+			cyl6 = new CylindricalCoordinate(1, _nHalf_PI, 1);
 		
-		// x,y,z > 0, 2. and 4. quadrant 
-		carsq9 = new CartesianCoordinate(1,-1,1);
-		carsq10 = new CartesianCoordinate(-1,1,-1);
-		sph9 = new SphericCoordinate(_root3, 0.9553166181, _nQuarter_PI);
-		sph10 = new SphericCoordinate(_root3, 2.186276035, _3Quarter_PI);
-		cyl9 = new CylindricalCoordinate(_root2, _nQuarter_PI, 1);
-		cyl10 = new CylindricalCoordinate(_root2, _3Quarter_PI, -1);
+			// x,y,z > 0, 1. and 3. quadrant
+			carsq7 = new CartesianCoordinate(1,1,1);
+			carsq8 = new CartesianCoordinate(-1,-1,-1);
+			sph7 = new SphericCoordinate(_root3, 0.9553166181, _quarter_PI);
+			sph8 = new SphericCoordinate(_root3, 2.186276035, _n3Quarter_PI);
+			cyl7 = new CylindricalCoordinate(_root2, _quarter_PI, 1);
+			cyl8 = new CylindricalCoordinate(_root2, _n3Quarter_PI, -1);
 		
+			// x,y,z > 0, 2. and 4. quadrant 
+			carsq9 = new CartesianCoordinate(1,-1,1);
+			carsq10 = new CartesianCoordinate(-1,1,-1);
+			sph9 = new SphericCoordinate(_root3, 0.9553166181, _nQuarter_PI);
+			sph10 = new SphericCoordinate(_root3, 2.186276035, _3Quarter_PI);
+			cyl9 = new CylindricalCoordinate(_root2, _nQuarter_PI, 1);
+			cyl10 = new CylindricalCoordinate(_root2, _3Quarter_PI, -1);
+		}catch(CoordinateException ce) {
+			ce.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -134,7 +138,7 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testIsEqual() {
+	public void testIsEqual() throws CoordinateException {
 		assertFalse(coordinate.isEqual(dCar3));
 		assertFalse(coordinate.isEqual(dCar2));
 		assertTrue(coordinate.isEqual(dCar1));
@@ -157,7 +161,7 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testGetCartesianDistanceToCartesian() {
+	public void testGetCartesianDistanceToCartesian() throws CoordinateException {
 		assertEquals(coordinate.getCartesianDistance(dCar1), 0 , 0);
 		assertEquals(coordinate.getCartesianDistance(dCar2), 5.196152422, 0.000000001);
 		assertEquals(coordinate.getCartesianDistance(dCar3), 12.4498996, 0.0000001);
@@ -168,14 +172,14 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test 
-	public void testGetCartesianDistanceToSpheric() {
+	public void testGetCartesianDistanceToSpheric() throws CoordinateException {
 		assertEquals(carsq1.getCartesianDistance(sph2), 2.0, 0.000000001);
 		assertEquals(carsq7.getCartesianDistance(sph8), 3.464101615, 0.000000001);
 		assertEquals(carsq3.getCartesianDistance(sph7), 1.0, 0.000000001);
 	}
 	
 	@Test
-	public void testGetCartesianDistanceToCylindrical() {
+	public void testGetCartesianDistanceToCylindrical() throws CoordinateException {
 		assertEquals(carsq1.getCartesianDistance(cyl2), 2.0, 0.000000001);
 		assertEquals(carsq7.getCartesianDistance(cyl8), 3.464101615, 0.000000001);
 		assertEquals(carsq3.getCartesianDistance(cyl7), 1.0, 0.000000001);
@@ -196,7 +200,7 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testAsCylindricalCoordinate() {
+	public void testAsCylindricalCoordinate() throws InvalidCoordinateValueException {
 		helpAssertCylindrical(cyl1, carsq1.asCylindricalCoordinate());
 		helpAssertCylindrical(cyl2, carsq2.asCylindricalCoordinate());
 		helpAssertCylindrical(cyl3, carsq3.asCylindricalCoordinate());
@@ -223,7 +227,7 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testAsSphericCooridnate() {
+	public void testAsSphericCooridnate() throws InvalidCoordinateValueException {
 		helpAssertSpheric(sph1, carsq1.asSphericCoordinate());
 		helpAssertSpheric(sph2, carsq2.asSphericCoordinate());
 		helpAssertSpheric(sph3, carsq3.asSphericCoordinate());
@@ -237,7 +241,7 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test
-	public void testGetCentralAngle() {
+	public void testGetCentralAngle() throws CoordinateException {
 		assertEquals(carsq2.getCentralAngle(carsq3), _3Quarter_PI, 0.000000001);
 		assertEquals(carsq3.getCentralAngle(carsq4), 0.0, 0.000000001);
 		assertEquals(carsq5.getCentralAngle(carsq6), 0.0, 0.000000001);

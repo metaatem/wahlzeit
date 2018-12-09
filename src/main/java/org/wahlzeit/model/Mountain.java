@@ -10,20 +10,25 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.MetaatemClassesUtil;
+
 public class Mountain {
 	
 	/**
 	 * Instance variables
 	 */
 	private String mName;
-	private int mHeight;
+	private double mHeight;
 	
 	/**
 	 * Constructor 
 	 * @param mName
 	 * @param mHeight
 	 */
-	public Mountain(String mName, int mHeight) {
+	public Mountain(String mName, double mHeight) {
+		MetaatemClassesUtil.assertName(mName);
+		MetaatemClassesUtil.assertHeight(mHeight);
+		
 		this.mName = mName;
 		this.mHeight = mHeight;
 	}
@@ -42,7 +47,7 @@ public class Mountain {
 	 * @MethodProperty primitive
 	 * @return
 	 */
-	public int getMountainHeight() {
+	public double getMountainHeight() {
 		return this.mHeight;
 	}
 	
@@ -52,6 +57,8 @@ public class Mountain {
 	 * @param mName
 	 */
 	public void setMountainName(String mName) {
+		MetaatemClassesUtil.assertName(mName);
+		
 		this.mName = mName;
 	}
 	
@@ -61,6 +68,9 @@ public class Mountain {
 	 * @param mHeight
 	 */
 	public void setMountainHeight(int mHeight) {
+		MetaatemClassesUtil.assertHeight(mHeight);
+		
 		this.mHeight = mHeight;
 	}
+	
 }

@@ -14,6 +14,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.wahlzeit.exceptions.CoordinateException;
+import org.wahlzeit.exceptions.InvalidCoordinateException;
+import org.wahlzeit.exceptions.InvalidCoordinateValueException;
+import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
 
 public class LocationTest {
 	
@@ -26,7 +30,9 @@ public class LocationTest {
 	private class Dummy {}
 	
 	@Before
-	public void initLocation() {
+	public void initLocation() 
+			throws InvalidCoordinateValueException, InvalidCoordinateException,
+				UnknownCoordinateTypeException {
 		location = new Location(new CartesianCoordinate(1,2,3));
 		dummy = new Dummy();
 		tl1 = new Location(new CartesianCoordinate(1,2,3));
@@ -43,7 +49,7 @@ public class LocationTest {
 	}
 	
 	@Test 
-	public void testIsEqual() {
+	public void testIsEqual() throws CoordinateException {
 		assertFalse(location.isEqual(tl2));
 		assertFalse(location.isEqual(tl3));
 		assertTrue(location.isEqual(tl1));

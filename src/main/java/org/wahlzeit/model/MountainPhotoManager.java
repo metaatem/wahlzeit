@@ -12,6 +12,8 @@ package org.wahlzeit.model;
 
 import java.util.logging.Logger;
 
+import org.wahlzeit.utils.MetaatemClassesUtil;
+
 public class MountainPhotoManager extends PhotoManager {
 	
 	
@@ -40,6 +42,8 @@ public class MountainPhotoManager extends PhotoManager {
 	 * @MethodProperty regular
 	 */
 	public Photo getPhotoFromId(PhotoId id) {
+		MetaatemClassesUtil.assertPhotoId(id);
+		
 		if (id == null) {
 			return null;
 		}

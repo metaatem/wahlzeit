@@ -10,26 +10,41 @@
 
 package org.wahlzeit.model;
 
-import java.util.HashMap;
-import java.util.Map;
+
+import org.wahlzeit.exceptions.CoordinateException;
+import org.wahlzeit.exceptions.InvalidCoordinateException;
+import org.wahlzeit.exceptions.InvalidCoordinateValueException;
+import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
+import org.wahlzeit.utils.MetaatemClassesUtil;
+
 
 public abstract class AbstractCoordinate implements Coordinate {
 	
 	/**
 	 * Converts cylindrical coordinate into cartesian coordinate
+	 * @throws InvalidCoordinateValueException 
 	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public abstract CartesianCoordinate asCartesianCoordinate();
+	public abstract CartesianCoordinate asCartesianCoordinate() throws CoordinateException;
 
 	
 	/**
+	 * @throws CoordinateException 
+	 * @throws InvalidCoordinateValueException 
 	 * @MethodType get
 	 * @MethodProperty primitive
 	 */
-	public double getCartesianDistance(Coordinate c) {
-		assertNotNull(c);
-		assertValidCoordinate(c);
+	public double getCartesianDistance(Coordinate c) throws CoordinateException {
+		try {
+			MetaatemClassesUtil.assertNotNull(c);
+		}catch(IllegalArgumentException ie) {
+			UnknownCoordinateTypeException ucte = new UnknownCoordinateTypeException("Null is not a valid coordinate type");
+			ucte.logException();
+			throw ucte;
+		}
+		
+		MetaatemClassesUtil.assertValidCoordinate(c);
 		
 		return Math.sqrt( Math.pow(c.asCartesianCoordinate().getX() - this.asCartesianCoordinate().getX(), 2) 
 				+ Math.pow(c.asCartesianCoordinate().getY() - this.asCartesianCoordinate().getY(), 2) 
@@ -41,27 +56,36 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public abstract CylindricalCoordinate asCylindricalCoordinate();
+	public abstract CylindricalCoordinate asCylindricalCoordinate() throws CoordinateException;
 	
 	
 	/**
 	 * Converts cartesian coordinate into spheric coordinate
 	 * See 'Cartesian Coordinates' at https://en.wikipedia.org/wiki/Spherical_coordinate_system
+	 * @throws InvalidCoordinateValueException 
 	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public abstract SphericCoordinate asSphericCoordinate();
+	public abstract SphericCoordinate asSphericCoordinate() throws CoordinateException;
 	
 	
 	/**
 	 * Calculates central angle based on longitude and latitude
 	 * See https://en.wikipedia.org/wiki/Great-circle_distance
+	 * @throws CoordinateException 
 	 * @MethodType get
 	 * @MethodProperty primitive
 	 */
-	public double getCentralAngle(Coordinate c) {
-		assertNotNull(c);
-		assertValidCoordinate(c);
+	public double getCentralAngle(Coordinate c) throws CoordinateException {
+		try {
+			MetaatemClassesUtil.assertNotNull(c);
+		}catch(IllegalArgumentException ie) {
+			UnknownCoordinateTypeException ucte = new UnknownCoordinateTypeException("Null is not a valid coordinate type");
+			ucte.logException();
+			throw ucte;
+		}
+		
+		MetaatemClassesUtil.assertValidCoordinate(c);
 		
 		double lat1 = this.asSphericCoordinate().getTheta();
 		double long1 = this.asSphericCoordinate().getPhi();
@@ -81,10 +105,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @return		Boolean indicating whether equal or not
 	 * @throws UnknownCoordinateTypeException 
 	 * @throws InvalidCoordinateException 
+	 * @throws CoordinateException 
 	 * @throws  
 	 * @throws InvalidCoordinateException 
 	 */
-	public abstract boolean isEqual(Coordinate c);
+	public abstract boolean isEqual(Coordinate c) throws CoordinateException;
 	
 	
 	/**
@@ -98,73 +123,20 @@ public abstract class AbstractCoordinate implements Coordinate {
 		if( !(o instanceof Coordinate) ) {
 			return false;
 		}
-		return isEqual((Coordinate) o);
-	}
-	
-	
-	
-	/**
-	 * @MethodType assertion
-	 * @param c coordinate
-	 */
-	protected void assertValidCoordinate(Coordinate c) {
 		
-		if(!(c instanceof CartesianCoordinate)
-			&& !(c instanceof CylindricalCoordinate)
-			&& !(c instanceof SphericCoordinate)){
-			throw new IllegalArgumentException("Unknown coordinate-subtype");
-		}
-	}
-	
-	/**
-	 * @MethodType assertion
-	 * @param c
-	 */
-	protected void assertNotNull(Object c) {
-		if(c == null) {
-			throw new IllegalArgumentException();
-		}
-	}
-	
-	
-	/**
-	 * @MethodType assertion
-	 * @param d
-	 */
-	protected void assertValidDouble(double d) {
-		if(d == Double.NaN){
-			throw new IllegalArgumentException("Argument is NaN instead of double");
+		boolean result = false;
+		
+		try {
+			 result = isEqual((Coordinate) o);
+		} catch (CoordinateException e) {
+			e.printStackTrace();
 		}
 		
-		if(d == Double.NEGATIVE_INFINITY) {
-			throw new IllegalArgumentException("Argument is negative infinite instead of double");
-		}
+		return result;
 		
-		if(d == Double.POSITIVE_INFINITY) {
-			throw new IllegalArgumentException("Argument is positive infinite instead of double");
-		}
 	}
 	
-	/**
-	 * @MethodType assertion
-	 * @param theta
-	 */
-	protected void assertTheta(double theta) {
-		assertValidDouble(theta);
-		if( (((-1) * (Math.PI / 2)) > theta) && (theta > (Math.PI / 2)) ) {
-			throw new IllegalArgumentException();
-		}
-	}
 	
-	/**
-	 * @MethodType assertion
-	 * @param phi
-	 */
-	protected void assertPhi(double phi) {
-		assertValidDouble(phi);
-		if( (((-1) * Math.PI) > phi) && (phi > Math.PI) ) {
-			throw new IllegalArgumentException();
-		}
-	}
+	
 	
 }

@@ -10,6 +10,11 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.exceptions.CoordinateException;
+import org.wahlzeit.exceptions.InvalidCoordinateValueException;
+import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
+import org.wahlzeit.utils.MetaatemClassesUtil;
+
 public class CylindricalCoordinate extends AbstractCoordinate {
 	
 	/**
@@ -32,11 +37,12 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @param radius
 	 * @param phi
 	 * @param z
+	 * @throws InvalidCoordinateValueException 
 	 */
-	public CylindricalCoordinate(double radius, double phi, double z) {
-		assertValidDouble(radius);
-		assertPhi(phi);
-		assertValidDouble(z);
+	public CylindricalCoordinate(double radius, double phi, double z) throws InvalidCoordinateValueException {
+		MetaatemClassesUtil.assertRadius(radius);
+		MetaatemClassesUtil.assertPhi(phi);
+		MetaatemClassesUtil.assertCoordinateValidDouble(z);
 		
 		this.phi = phi;
 		this.radius = radius;
@@ -57,9 +63,10 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @param x		x-coordinate
+	 * @throws InvalidCoordinateValueException 
 	 */
-	protected void setPhi(double phi) {
-		assertPhi(phi);
+	public void setPhi(double phi) throws InvalidCoordinateValueException {
+		MetaatemClassesUtil.assertPhi(phi);
 		
 		this.phi = phi;
 	}
@@ -68,9 +75,10 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @param y		y-coordinate
+	 * @throws InvalidCoordinateValueException 
 	 */
-	protected void setRadius(double radius) {
-		assertValidDouble(radius);
+	public void setRadius(double radius) throws InvalidCoordinateValueException {
+		MetaatemClassesUtil.assertRadius(radius);
 		
 		this.radius = radius;
 	}
@@ -79,9 +87,10 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @param z		z-coordinate
+	 * @throws InvalidCoordinateValueException 
 	 */
-	protected void setZ(double z) {
-		assertValidDouble(z);
+	public void setZ(double z) throws InvalidCoordinateValueException {
+		MetaatemClassesUtil.assertCoordinateValidDouble(z);
 		
 		this.z = z;
 	}
@@ -91,7 +100,7 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @methodproperty primitive
 	 * @return	x-coordinate
 	 */
-	protected double getPhi() {
+	public double getPhi() {
 		return this.phi;
 	}
 	
@@ -100,7 +109,7 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @methodproperty primitive
 	 * @return	y-coordinate
 	 */
-	protected double getRadius() {
+	public double getRadius() {
 		return this.radius;
 	}
 	
@@ -109,24 +118,26 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @methodproperty primitive
 	 * @return	z-coordinate
 	 */
-	protected double getZ() {
+	public double getZ() {
 		return this.z;
 	}
 	
 	
 	/**
 	 * Converts cylindrical coordinate into cartesian coordinate
+	 * @throws InvalidCoordinateValueException 
 	 * @MethodType conversion
 	 * @MethodProperty primitive
 	 */
-	public CartesianCoordinate asCartesianCoordinate() {
+	public CartesianCoordinate asCartesianCoordinate() throws InvalidCoordinateValueException {
 		return basicAsCartesianCoordinate();
 	}
 	
 	/**
+	 * @throws InvalidCoordinateValueException 
 	 * @MethodProperty primitive
 	 */
-	private CartesianCoordinate basicAsCartesianCoordinate() {
+	private CartesianCoordinate basicAsCartesianCoordinate() throws InvalidCoordinateValueException {
 		return new CartesianCoordinate(this.radius * Math.cos(this.phi),
 				this.radius * Math.sin(this.phi), this.z);
 	}
@@ -141,13 +152,14 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	}
 	
 	/**
+	 * @throws InvalidCoordinateValueException 
 	 * @MethodProperty primitive
 	 */
-	public SphericCoordinate asSphericCoordinate() {
+	public SphericCoordinate asSphericCoordinate() throws InvalidCoordinateValueException {
 		return basicAsSphericCoordinate();
 	}
 	
-	private SphericCoordinate basicAsSphericCoordinate() {
+	private SphericCoordinate basicAsSphericCoordinate() throws InvalidCoordinateValueException {
 		return new SphericCoordinate( Math.sqrt(Math.pow(this.radius, 2) + Math.pow(this.z, 2)),
 				Math.atan2(this.radius, this.z), this.phi);
 	}
@@ -158,10 +170,19 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @MethodProperty primitive
 	 * @param c 	Coordinate this instance has to be compared with
 	 * @return		Boolean indicating whether equal or not
+	 * @throws UnknownCoordinateTypeException 
+	 * @throws InvalidCoordinateException 
 	 */
-	public boolean isEqual(Coordinate c) {
-		assertNotNull(c);
-		assertValidCoordinate(c);
+	public boolean isEqual(Coordinate c) throws CoordinateException {
+		try {
+			MetaatemClassesUtil.assertNotNull(c);
+		}catch(IllegalArgumentException ie) {
+			UnknownCoordinateTypeException ucte = new UnknownCoordinateTypeException("Null is not a valid coordinate type");
+			ucte.logException();
+			throw ucte;
+		}
+		
+		MetaatemClassesUtil.assertValidCoordinate(c);
 		
 		return ( Double.compare(new Double(this.radius), new Double(c.asCylindricalCoordinate().getRadius())) == 0 
 			&&   Double.compare(new Double(this.phi), new Double(c.asCylindricalCoordinate().getPhi())) == 0

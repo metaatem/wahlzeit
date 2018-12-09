@@ -10,6 +10,11 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.exceptions.CoordinateException;
+import org.wahlzeit.exceptions.InvalidCoordinateException;
+import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
+import org.wahlzeit.utils.MetaatemClassesUtil;
+
 public class Location {
 
 	
@@ -18,8 +23,14 @@ public class Location {
 	/**
 	 * Constructor initializing the coordinate variable
 	 * @param coordinate	Coordinate pinpointing location
+	 * @throws UnknownCoordinateTypeException 
+	 * @throws InvalidCoordinateException 
 	 */
-	protected Location(CartesianCoordinate coordinate) {
+	protected Location(CartesianCoordinate coordinate)
+			throws InvalidCoordinateException, UnknownCoordinateTypeException {
+		
+		MetaatemClassesUtil.assertValidCoordinate(coordinate);
+		
 		this.coordinate = coordinate;
 	}
 	
@@ -27,8 +38,9 @@ public class Location {
 	 * Calculates distance from this Location to the Location l
 	 * @param ll	Location the distance is calculated to 
 	 * @return 		Double for Calculated distance
+	 * @throws CoordinateException 
 	 */
-	protected double getDistance(Location ll) {
+	protected double getDistance(Location ll) throws CoordinateException {
 		return this.coordinate.getCartesianDistance(ll.coordinate);
 	}
 	
@@ -38,8 +50,9 @@ public class Location {
 	 * @methodproperty regular
 	 * @param ll	Location this instance has to be compared with
 	 * @return		Boolean indicating whether equal or not
+	 * @throws CoordinateException 
 	 */
-	protected boolean isEqual(Location ll) {
+	protected boolean isEqual(Location ll) throws CoordinateException {
 		if(ll == this) {
 			return true;
 		}
@@ -59,7 +72,15 @@ public class Location {
 			return false;
 		}
 		
-		return isEqual((Location) o);
+		boolean result = false;
+		
+		try {
+			result = isEqual((Location) o);
+		} catch (CoordinateException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 }

@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.wahlzeit.exceptions.CoordinateException;
+import org.wahlzeit.exceptions.InvalidCoordinateValueException;
 
 
 
@@ -69,7 +71,7 @@ public class SphericCoordinateTest {
 	private class Dummy {}
 	
 	@Before
-	public void initCoordinate() {
+	public void initCoordinate() throws InvalidCoordinateValueException {
 		
 		dummy = new Dummy();
 
@@ -124,7 +126,7 @@ public class SphericCoordinateTest {
 	}
 	
 	@Test
-	public void testIsEqual() {
+	public void testIsEqual() throws CoordinateException {
 		assertFalse(sph1.isEqual(sph3));
 		assertFalse(sph4.isEqual(sph5));
 		assertTrue(sph2.isEqual(sph2));
@@ -153,7 +155,7 @@ public class SphericCoordinateTest {
 	}
 	
 	@Test
-	public void testAsCartesianCoordinate() {
+	public void testAsCartesianCoordinate() throws InvalidCoordinateValueException {
 		helpAssertCartesian(carsq1, sph1.asCartesianCoordinate());
 		helpAssertCartesian(carsq2, sph2.asCartesianCoordinate());
 		helpAssertCartesian(carsq3, sph3.asCartesianCoordinate());
@@ -181,7 +183,7 @@ public class SphericCoordinateTest {
 	}
 	
 	@Test
-	public void testAsCylindricalCoordinate() {
+	public void testAsCylindricalCoordinate() throws InvalidCoordinateValueException {
 		helpAssertCylindrical(cyl1, sph1.asCylindricalCoordinate());
 		helpAssertCylindrical(cyl2, sph2.asCylindricalCoordinate());
 		helpAssertCylindrical(cyl3, sph3.asCylindricalCoordinate());
@@ -204,28 +206,28 @@ public class SphericCoordinateTest {
 	}
 	
 	@Test
-	public void testGetCartesianDistanceToCartesian() {
+	public void testGetCartesianDistanceToCartesian() throws CoordinateException {
 		assertEquals(sph1.getCartesianDistance(carsq2), 2.0, 0.000000001);
 		assertEquals(sph7.getCartesianDistance(carsq8), 3.464101615, 0.000000001);
 		assertEquals(sph3.getCartesianDistance(carsq7), 1.0, 0.000000001);
 	}
 	
 	@Test 
-	public void testGetCartesianDistanceToSpheric() {
+	public void testGetCartesianDistanceToSpheric() throws CoordinateException {
 		assertEquals(sph1.getCartesianDistance(sph2), 2.0, 0.000000001);
 		assertEquals(sph7.getCartesianDistance(sph8), 3.464101615, 0.000000001);
 		assertEquals(sph3.getCartesianDistance(sph7), 1.0, 0.000000001);
 	}
 	
 	@Test
-	public void testGetCartesianDistanceToCylindrical() {
+	public void testGetCartesianDistanceToCylindrical() throws CoordinateException {
 		assertEquals(sph1.getCartesianDistance(cyl2), 2.0, 0.000000001);
 		assertEquals(sph7.getCartesianDistance(cyl8), 3.464101615, 0.000000001);
 		assertEquals(sph3.getCartesianDistance(cyl7), 1.0, 0.000000001);
 	}
 	
 	@Test
-	public void testGetCentralAngle() {
+	public void testGetCentralAngle() throws CoordinateException {
 		assertEquals(sph2.getCentralAngle(sph3), _3Quarter_PI, 0.000000001);
 		assertEquals(sph3.getCentralAngle(sph4), 0.0, 0.000000001);
 		assertEquals(sph5.getCentralAngle(sph6), 0.0, 0.000000001);

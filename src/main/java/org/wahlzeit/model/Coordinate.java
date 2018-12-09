@@ -10,18 +10,20 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.exceptions.CoordinateException;
+
 public interface Coordinate {
-	CartesianCoordinate asCartesianCoordinate();
+	CartesianCoordinate asCartesianCoordinate() throws CoordinateException;
 	
-	double getCartesianDistance(Coordinate c);
+	double getCartesianDistance(Coordinate c) throws CoordinateException;
 	
-	CylindricalCoordinate asCylindricalCoordinate();
+	CylindricalCoordinate asCylindricalCoordinate() throws CoordinateException;
 	
-	SphericCoordinate asSphericCoordinate();
+	SphericCoordinate asSphericCoordinate() throws CoordinateException;
 	
-	double getCentralAngle(Coordinate c);
+	double getCentralAngle(Coordinate c) throws CoordinateException;
 	
-	boolean isEqual(Coordinate c);
+	boolean isEqual(Coordinate c) throws CoordinateException;
 	
 	boolean equals(Object o);
 }

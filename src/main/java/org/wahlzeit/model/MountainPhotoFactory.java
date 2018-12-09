@@ -12,7 +12,9 @@ package org.wahlzeit.model;
 
 import java.util.logging.Logger;
 
+import org.wahlzeit.exceptions.PhotoFactoryException;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.MetaatemClassesUtil;
 
 public class MountainPhotoFactory extends PhotoFactory {
 	
@@ -67,19 +69,33 @@ public class MountainPhotoFactory extends PhotoFactory {
 
 	/**
 	 * Creates a new photo with the specified id
+	 * @throws PhotoFactoryException 
 	 * @MethodType factory
 	 */
 	@Override
-	public Photo createPhoto(PhotoId id) {
-		return new MountainPhoto(id);
+	public Photo createPhoto(PhotoId id) throws PhotoFactoryException {
+		MountainPhoto mPhoto;
+		try {
+			mPhoto = new MountainPhoto(id);
+		}catch(IllegalArgumentException ie) {
+			throw new PhotoFactoryException(ie.getMessage());
+		}
+		return mPhoto;
 	}
 	
 	/**
 	 * Creates new photo with Mountain object
+	 * @throws PhotoFactoryException 
 	 * @MethodType factory
 	 */
-	public Photo createPhoto(Mountain mountain) {
-		return new MountainPhoto(mountain);
+	public Photo createPhoto(Mountain mountain) throws PhotoFactoryException {
+		MountainPhoto mPhoto;
+		try {
+			mPhoto = new MountainPhoto(mountain);
+		}catch(IllegalArgumentException ie) {
+			throw new PhotoFactoryException(ie.getMessage());
+		}
+		return mPhoto;
 	}
 
 	/**
