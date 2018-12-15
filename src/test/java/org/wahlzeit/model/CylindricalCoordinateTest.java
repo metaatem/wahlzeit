@@ -75,44 +75,44 @@ public class CylindricalCoordinateTest {
 		dummy = new Dummy();
 
 		// x,y = 0
-		carsq1 = new CartesianCoordinate(0,0,1);
-		carsq2 = new CartesianCoordinate(0,0,-1);
-		sph1 = new SphericCoordinate(1, 0, 0);
-		sph2 = new SphericCoordinate(1, _PI, 0);
-		cyl1 = new CylindricalCoordinate(0,0,1);
-		cyl2 = new CylindricalCoordinate(0,0,-1);
+		carsq1 = CartesianCoordinate.getInstance(0,0,1);
+		carsq2 = CartesianCoordinate.getInstance(0,0,-1);
+		sph1 = SphericCoordinate.getInstance(1, 0, 0);
+		sph2 = SphericCoordinate.getInstance(1, _PI, 0);
+		cyl1 = CylindricalCoordinate.getInstance(0,0,1);
+		cyl2 = CylindricalCoordinate.getInstance(0,0,-1);
 		
 		// y = 0 
-		carsq3 = new CartesianCoordinate(1,0,1);
-		carsq4 = new CartesianCoordinate(-1,0,-1);
-		sph3 = new SphericCoordinate(_root2, _quarter_PI, 0);
-		sph4 = new SphericCoordinate(_root2, _3Quarter_PI, _PI);
-		cyl3 = new CylindricalCoordinate(1,0,1);
-		cyl4 = new CylindricalCoordinate(1, _PI ,-1);
+		carsq3 = CartesianCoordinate.getInstance(1,0,1);
+		carsq4 = CartesianCoordinate.getInstance(-1,0,-1);
+		sph3 = SphericCoordinate.getInstance(_root2, _quarter_PI, 0);
+		sph4 = SphericCoordinate.getInstance(_root2, _3Quarter_PI, _PI);
+		cyl3 = CylindricalCoordinate.getInstance(1,0,1);
+		cyl4 = CylindricalCoordinate.getInstance(1, _PI ,-1);
 	
 		// x = 0
-		carsq5 = new CartesianCoordinate(0,1,-1);
-		carsq6 = new CartesianCoordinate(0,-1,1);
-		sph5 = new SphericCoordinate(_root2, _3Quarter_PI, _half_PI);
-		sph6 = new SphericCoordinate(_root2, _quarter_PI, _nHalf_PI);
-		cyl5 = new CylindricalCoordinate(1, _half_PI, -1);
-		cyl6 = new CylindricalCoordinate(1, _nHalf_PI, 1);
-		
+		carsq5 = CartesianCoordinate.getInstance(0,1,-1);
+		carsq6 = CartesianCoordinate.getInstance(0,-1,1);
+		sph5 = SphericCoordinate.getInstance(_root2, _3Quarter_PI, _half_PI);
+		sph6 = SphericCoordinate.getInstance(_root2, _quarter_PI, _nHalf_PI);
+		cyl5 = CylindricalCoordinate.getInstance(1, _half_PI, -1);
+		cyl6 = CylindricalCoordinate.getInstance(1, _nHalf_PI, 1);
+	
 		// x,y,z > 0, 1. and 3. quadrant
-		carsq7 = new CartesianCoordinate(1,1,1);
-		carsq8 = new CartesianCoordinate(-1,-1,-1);
-		sph7 = new SphericCoordinate(_root3, 0.9553166181, _quarter_PI);
-		sph8 = new SphericCoordinate(_root3, 2.186276035, _n3Quarter_PI);
-		cyl7 = new CylindricalCoordinate(_root2, _quarter_PI, 1);
-		cyl8 = new CylindricalCoordinate(_root2, _n3Quarter_PI, -1);
-		
+		carsq7 = CartesianCoordinate.getInstance(1,1,1);
+		carsq8 = CartesianCoordinate.getInstance(-1,-1,-1);
+		sph7 = SphericCoordinate.getInstance(_root3, 0.9553166181, _quarter_PI);
+		sph8 = SphericCoordinate.getInstance(_root3, 2.186276035, _n3Quarter_PI);
+		cyl7 = CylindricalCoordinate.getInstance(_root2, _quarter_PI, 1);
+		cyl8 = CylindricalCoordinate.getInstance(_root2, _n3Quarter_PI, -1);
+	
 		// x,y,z > 0, 2. and 4. quadrant 
-		carsq9 = new CartesianCoordinate(1,-1,1);
-		carsq10 = new CartesianCoordinate(-1,1,-1);
-		sph9 = new SphericCoordinate(_root3, 0.9553166181, _nQuarter_PI);
-		sph10 = new SphericCoordinate(_root3, 2.186276035, _3Quarter_PI);
-		cyl9 = new CylindricalCoordinate(_root2, _nQuarter_PI, 1);
-		cyl10 = new CylindricalCoordinate(_root2, _3Quarter_PI, -1);
+		carsq9 = CartesianCoordinate.getInstance(1,-1,1);
+		carsq10 = CartesianCoordinate.getInstance(-1,1,-1);
+		sph9 = SphericCoordinate.getInstance(_root3, 0.9553166181, _nQuarter_PI);
+		sph10 = SphericCoordinate.getInstance(_root3, 2.186276035, _3Quarter_PI);
+		cyl9 = CylindricalCoordinate.getInstance(_root2, _nQuarter_PI, 1);
+		cyl10 = CylindricalCoordinate.getInstance(_root2, _3Quarter_PI, -1);
 		
 	}
 	

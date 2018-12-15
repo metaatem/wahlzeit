@@ -10,6 +10,9 @@
 
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.wahlzeit.exceptions.CoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateValueException;
 import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
@@ -17,9 +20,41 @@ import org.wahlzeit.utils.MetaatemClassesUtil;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 	
-	private double x;
-	private double y;
-	private double z;
+	protected static Map<Integer, CartesianCoordinate> cs = new HashMap<Integer, CartesianCoordinate>();
+	
+	
+	public static CartesianCoordinate getInstance(double x, double y, double z) throws InvalidCoordinateValueException {
+		MetaatemClassesUtil.assertCoordinateValidDouble(x);
+		MetaatemClassesUtil.assertCoordinateValidDouble(y);
+		MetaatemClassesUtil.assertCoordinateValidDouble(z);
+		
+		return doGetInstance(x, y, z);
+	}
+	
+	private static CartesianCoordinate doGetInstance(double x, double y, double z) {
+		CartesianCoordinate c = new CartesianCoordinate(x, y, z);
+		int hash = c.hashCode();
+		c = cs.get(hash);
+		if(c == null) {
+			synchronized(cs) {
+				c = cs.get(hash);
+				if(c == null) {
+					c = new CartesianCoordinate(x,y,z);
+					cs.put(hash, c);
+				}
+			}
+		}
+		return c;
+	}
+	
+	/**
+     * Coordinate values
+	 */
+	private final double x;
+	private final double y;
+	private final double z;
+	
+	
 	
 	/**
 	 * Constructor for Coordinate class
@@ -29,94 +64,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param z		z-coordinate
 	 * @throws InvalidCoordinateValueException 
 	 */
-	public CartesianCoordinate(double x, double y, double z) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertCoordinateValidDouble(x);
-		MetaatemClassesUtil.assertCoordinateValidDouble(y);
-		MetaatemClassesUtil.assertCoordinateValidDouble(z);
-		
+	private CartesianCoordinate(double x, double y, double z)  {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
-	/**
-	 * Helper handing back properties as String
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 * @return 
-	 */
-	public String propertiesAsString() {
-		return Double.toString(x) + "\n" + Double.toString(y) + "\n" + Double.toString(z);
-	}
-	
-	/**
-	 * Setter for Coordinate class to set x,y,z in one go.
-	 * @methodtyp set
-	 * @methodproperty primitive
-	 * @param x		x-coordinate
-	 * @param y		y-coordinate
-	 * @param z		z-coordinate
-	 * @throws InvalidCoordinateValueException 
-	 */
-	public void setXYZ(double x, double y, double z) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertCoordinateValidDouble(x);
-		MetaatemClassesUtil.assertCoordinateValidDouble(y);
-		MetaatemClassesUtil.assertCoordinateValidDouble(z);
-		
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-	
-	/**
-	 * Setter for x-coordinate
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param x		x-coordinate
-	 * @throws InvalidCoordinateValueException 
-	 */
-	public void setX(double x) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertCoordinateValidDouble(x);
-		
-		this.x = x;
-	}
-	
-	/**
-	 * Setter for y-coordinate
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param y		y-coordinate
-	 * @throws InvalidCoordinateValueException 
-	 */
-	public void setY(double y) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertCoordinateValidDouble(y);
-		
-		this.y = y;
-	}
-	
-	/**
-	 * Setter for z-coordinate
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param z		z-coordinate
-	 * @throws InvalidCoordinateValueException 
-	 */
-	public void setZ(double z) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertCoordinateValidDouble(z);
-		
-		this.z = z;
-	}
-	
-	/**
-	 * Getter to get x,y,z coordinates in one go
-	 * @methodtype get
-	 * @methodproperty primitive
-	 * @return		Array containing x,y,z
-	 */
-	public double[] getXYZ(){
-		double[] vector = new double[] {x,y,z};
-		return vector;
-	}
 	
 	/**
 	 * Getter for x-coordinate
@@ -173,7 +126,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @MethodProperty primitive
 	 */
 	protected CylindricalCoordinate basicAsCylindricalCoordinate() throws InvalidCoordinateValueException {
-		return new CylindricalCoordinate( Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)),
+		return CylindricalCoordinate.getInstance( Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)),
 				Math.atan2(this.y, this.x), this.z);	
 	}
 
@@ -193,7 +146,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @MethodProperty primitive
 	 */
 	protected SphericCoordinate basicAsSphericCoordinate() throws InvalidCoordinateValueException {
-		return new SphericCoordinate( Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2)),
+		return SphericCoordinate.getInstance( Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2)),
 				Math.acos( this.z / Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2))),
 				Math.atan2(this.y, this.x)  );
 	}
@@ -216,9 +169,22 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		}
 		MetaatemClassesUtil.assertValidCoordinate(c);
 		
-		return ( Double.compare(new Double(this.x), new Double(c.asCartesianCoordinate().getX())) == 0 
-			&&   Double.compare(new Double(this.y), new Double(c.asCartesianCoordinate().getY())) == 0
-			&&   Double.compare(new Double(this.z), new Double(c.asCartesianCoordinate().getZ())) == 0 );
+		return c == this;
+	}
+	
+	@Override
+	public String toString() {
+		return getClass().getName() + "@" + "{x: " + this.x + ", y: " + this.y + ", z: " + this.z + "}";
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.toString().hashCode();
+	}
+	
+	@Override
+	public CartesianCoordinate clone() {
+		return this;
 	}
 	
 }

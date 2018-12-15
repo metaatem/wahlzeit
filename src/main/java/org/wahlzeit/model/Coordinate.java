@@ -26,4 +26,5 @@ public interface Coordinate {
 	boolean isEqual(Coordinate c) throws CoordinateException;
 	
 	boolean equals(Object o);
+	
 }

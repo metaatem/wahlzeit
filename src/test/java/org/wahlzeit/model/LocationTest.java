@@ -33,11 +33,11 @@ public class LocationTest {
 	public void initLocation() 
 			throws InvalidCoordinateValueException, InvalidCoordinateException,
 				UnknownCoordinateTypeException {
-		location = new Location(new CartesianCoordinate(1,2,3));
+		location = new Location(CartesianCoordinate.getInstance(1,2,3));
 		dummy = new Dummy();
-		tl1 = new Location(new CartesianCoordinate(1,2,3));
-		tl2 = new Location(new CartesianCoordinate(4,5,6));
-		tl3 = new Location(new CartesianCoordinate(-4,-5,-6));
+		tl1 = new Location(CartesianCoordinate.getInstance(1,2,3));
+		tl2 = new Location(CartesianCoordinate.getInstance(4,5,6));
+		tl3 = new Location(CartesianCoordinate.getInstance(-4,-5,-6));
 	}
 	
 	@Test

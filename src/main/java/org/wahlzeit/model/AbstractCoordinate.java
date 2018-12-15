@@ -11,6 +11,9 @@
 package org.wahlzeit.model;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.wahlzeit.exceptions.CoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateValueException;
@@ -19,6 +22,7 @@ import org.wahlzeit.utils.MetaatemClassesUtil;
 
 
 public abstract class AbstractCoordinate implements Coordinate {
+	
 	
 	/**
 	 * Converts cylindrical coordinate into cartesian coordinate
@@ -135,8 +139,4 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return result;
 		
 	}
-	
-	
-	
-	
 }

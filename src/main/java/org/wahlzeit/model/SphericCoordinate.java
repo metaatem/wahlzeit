@@ -10,12 +10,42 @@
 
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.wahlzeit.exceptions.CoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateValueException;
 import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
 import org.wahlzeit.utils.MetaatemClassesUtil;
 
 public class SphericCoordinate extends AbstractCoordinate{
+	
+	protected static Map<Integer, SphericCoordinate> cs = new HashMap<Integer, SphericCoordinate>();
+	
+	
+	public static SphericCoordinate getInstance(double radius, double theta, double phi) throws InvalidCoordinateValueException {
+		MetaatemClassesUtil.assertRadius(radius);
+		MetaatemClassesUtil.assertTheta(theta);
+		MetaatemClassesUtil.assertPhi(phi);
+		
+		return doGetInstance(radius, theta, phi);
+	}
+	
+	private static SphericCoordinate doGetInstance(double radius, double theta, double phi) {
+		SphericCoordinate c = new SphericCoordinate(radius, theta, phi);
+		int hash = c.hashCode();
+		c = cs.get(hash);
+		if(c == null) {
+			synchronized(cs) {
+				c = cs.get(hash);
+				if(c == null) {
+					c = new SphericCoordinate(radius, theta, phi);
+					cs.put(hash, c);
+				}
+			}
+		}
+		return c;
+	}
 	
 	/**
 	 * Spheric coordinate according to ISO convention used in physics
@@ -27,9 +57,9 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * 		 (associated with longitude/ geographische Breite )
 	 * radius - as euclidean distance from origin origin to point P
 	 */
-	private double phi;
-	private double theta;
-	private double radius;
+	private final double phi;
+	private final double theta;
+	private final double radius;
 	
 	/**
 	 * Constructor for Coordinate class
@@ -39,59 +69,9 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @param z		z-coordinate
 	 * @throws InvalidCoordinateValueException 
 	 */
-	public SphericCoordinate(double radius, double theta, double phi) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertRadius(radius);
-		MetaatemClassesUtil.assertTheta(theta);
-		MetaatemClassesUtil.assertPhi(phi);
-		
+	private SphericCoordinate(double radius, double theta, double phi) {
 		this.phi = phi;
 		this.theta = theta;
-		this.radius = radius;
-	}
-	
-	/**
-	 * Helper handing back properties as String
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 * @return 
-	 */
-	public String propertiesAsString() {
-		return Double.toString(radius) + "\n" + Double.toString(theta) + "\n" + Double.toString(phi);
-	}
-	
-	/**
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param x		x-coordinate
-	 * @throws InvalidCoordinateValueException 
-	 */
-	public void setPhi(double phi) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertPhi(phi);
-		
-		this.phi = phi;
-	}
-	
-	/**
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param y		y-coordinate
-	 * @throws InvalidCoordinateValueException 
-	 */
-	public void setTheta(double theta) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertTheta(theta);
-		
-		this.theta = theta;
-	}
-	
-	/**
-	 * @methodtype set
-	 * @methodproperty primitive
-	 * @param z		z-coordinate
-	 * @throws InvalidCoordinateValueException 
-	 */
-	public void setRadius(double radius) throws InvalidCoordinateValueException {
-		MetaatemClassesUtil.assertRadius(radius);
-		
 		this.radius = radius;
 	}
 	
@@ -137,7 +117,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @MethodProperty primitive
 	 */
 	private CartesianCoordinate basicAsCartesianCoordinate() throws InvalidCoordinateValueException {
-		return new CartesianCoordinate( (this.radius * Math.sin(this.theta) * Math.cos(this.phi)),
+		return CartesianCoordinate.getInstance( (this.radius * Math.sin(this.theta) * Math.cos(this.phi)),
 				(this.radius * Math.sin(this.theta) * Math.sin(this.phi)),
 				(this.radius * Math.cos(this.theta))  );
 	}
@@ -157,7 +137,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @MethodProperty primitive
 	 */
 	private CylindricalCoordinate basicAsCylindricalCoordinate() throws InvalidCoordinateValueException {
-		return new CylindricalCoordinate( (this.radius * Math.sin(this.theta)),
+		return CylindricalCoordinate.getInstance( (this.radius * Math.sin(this.theta)),
 				this.phi, (this.radius * Math.cos(this.theta)) );
 	}
 
@@ -189,9 +169,22 @@ public class SphericCoordinate extends AbstractCoordinate{
 		}
 		MetaatemClassesUtil.assertValidCoordinate(c);
 		
-		return ( Double.compare(new Double(this.phi), new Double(c.asSphericCoordinate().getPhi())) == 0 
-			&&   Double.compare(new Double(this.theta), new Double(c.asSphericCoordinate().getTheta())) == 0
-			&&   Double.compare(new Double(this.radius), new Double(c.asSphericCoordinate().getRadius())) == 0 );
+		return c == this;
+	}
+	
+	@Override
+	public String toString() {
+		return getClass().getName() + "@" + "{x: " + this.radius + ", y: " + this.theta + ", z: " + this.phi + "}";
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.toString().hashCode();
+	}
+	
+	@Override
+	public SphericCoordinate clone() {
+		return this;
 	}
 	
 }
