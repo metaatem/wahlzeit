@@ -20,9 +20,20 @@ import org.wahlzeit.utils.MetaatemClassesUtil;
 
 public class SphericCoordinate extends AbstractCoordinate{
 	
+	/**
+	 * HashMap to make coordinate ValueObject shared
+	 */
 	protected static Map<Integer, SphericCoordinate> cs = new HashMap<Integer, SphericCoordinate>();
 	
-	
+	/**
+	 * Factory method to fetch a SphericCoordinate. 
+	 * Assertions in to check for preconditions are done here to separate concerns.
+	 * @param radius
+	 * @param phi
+	 * @param z
+	 * @return
+	 * @throws InvalidCoordinateValueException
+	 */
 	public static SphericCoordinate getInstance(double radius, double theta, double phi) throws InvalidCoordinateValueException {
 		MetaatemClassesUtil.assertRadius(radius);
 		MetaatemClassesUtil.assertTheta(theta);
@@ -31,6 +42,15 @@ public class SphericCoordinate extends AbstractCoordinate{
 		return doGetInstance(radius, theta, phi);
 	}
 	
+	/**
+	 * Actually fetches the SphericCoordinate from the central HashMap or creates a new one
+	 * Returns the queried SphericCoordinate in all cases.
+	 * @MethodProperty primitive
+	 * @param radius
+	 * @param phi
+	 * @param z
+	 * @return
+	 */
 	private static SphericCoordinate doGetInstance(double radius, double theta, double phi) {
 		SphericCoordinate c = new SphericCoordinate(radius, theta, phi);
 		int hash = c.hashCode();

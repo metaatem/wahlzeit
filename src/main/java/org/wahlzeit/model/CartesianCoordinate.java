@@ -20,9 +20,20 @@ import org.wahlzeit.utils.MetaatemClassesUtil;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 	
+	/**
+	 * HashMap to make coordinate ValueObject shared
+	 */
 	protected static Map<Integer, CartesianCoordinate> cs = new HashMap<Integer, CartesianCoordinate>();
 	
-	
+	/**
+	 * Factory method to fetch a CartesianCoordinate. 
+	 * Assertions in to check for preconditions are done here to separate concerns.
+	 * @param radius
+	 * @param phi
+	 * @param z
+	 * @return
+	 * @throws InvalidCoordinateValueException
+	 */
 	public static CartesianCoordinate getInstance(double x, double y, double z) throws InvalidCoordinateValueException {
 		MetaatemClassesUtil.assertCoordinateValidDouble(x);
 		MetaatemClassesUtil.assertCoordinateValidDouble(y);
@@ -31,6 +42,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return doGetInstance(x, y, z);
 	}
 	
+	/**
+	 * Actually fetches the CartesianCoordinate from the central HashMap or creates a new one
+	 * Returns the queried CartesianCoordinate in all cases.
+	 * @MethodProperty primitive
+	 * @param radius
+	 * @param phi
+	 * @param z
+	 * @return
+	 */
 	private static CartesianCoordinate doGetInstance(double x, double y, double z) {
 		CartesianCoordinate c = new CartesianCoordinate(x, y, z);
 		int hash = c.hashCode();
@@ -47,13 +67,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return c;
 	}
 	
+	
 	/**
      * Coordinate values
 	 */
 	private final double x;
 	private final double y;
 	private final double z;
-	
 	
 	
 	/**
@@ -69,8 +89,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.y = y;
 		this.z = z;
 	}
-	
-	
+
 	/**
 	 * Getter for x-coordinate
 	 * @methodtype get
@@ -172,16 +191,25 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return c == this;
 	}
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public String toString() {
 		return getClass().getName() + "@" + "{x: " + this.x + ", y: " + this.y + ", z: " + this.z + "}";
 	}
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public int hashCode() {
 		return this.toString().hashCode();
 	}
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public CartesianCoordinate clone() {
 		return this;

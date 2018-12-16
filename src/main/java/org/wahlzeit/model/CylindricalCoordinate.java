@@ -20,9 +20,21 @@ import org.wahlzeit.utils.MetaatemClassesUtil;
 
 public class CylindricalCoordinate extends AbstractCoordinate {
 	
+	/**
+	 * HashMap to make coordinate ValueObject shared
+	 */
 	protected static Map<Integer, CylindricalCoordinate> cs = new HashMap<Integer, CylindricalCoordinate>();
 	
 	
+	/**
+	 * Factory method to fetch a CylindricalCoordinate. 
+	 * Assertions in to check for preconditions are done here to separate concerns.
+	 * @param radius
+	 * @param phi
+	 * @param z
+	 * @return
+	 * @throws InvalidCoordinateValueException
+	 */
 	public static CylindricalCoordinate getInstance(double radius, double phi, double z) throws InvalidCoordinateValueException {
 		MetaatemClassesUtil.assertRadius(radius);
 		MetaatemClassesUtil.assertPhi(phi);
@@ -31,6 +43,15 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 		return doGetInstance(radius, phi, z);
 	}
 	
+	/**
+	 * Actually fetches the CylindricalCoordinate from the central HashMap or creates a new one
+	 * Returns the queried CylindricalCoordinate in all cases.
+	 * @MethodProperty primitive
+	 * @param radius
+	 * @param phi
+	 * @param z
+	 * @return
+	 */
 	private static CylindricalCoordinate doGetInstance(double radius, double phi, double z) {
 		CylindricalCoordinate c = new CylindricalCoordinate(radius, phi, z);
 		int hash = c.hashCode();
@@ -168,16 +189,25 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	}
 	
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public String toString() {
 		return getClass().getName() + "@" + "{x: " + this.radius + ", y: " + this.phi + ", z: " + this.z + "}";
 	}
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public int hashCode() {
 		return this.toString().hashCode();
 	}
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public CylindricalCoordinate clone() {
 		return this;
