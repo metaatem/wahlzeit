@@ -7,6 +7,7 @@ import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.PhotoSize;
 import org.wahlzeit.model.persistence.ImageStorage;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,8 @@ import java.util.logging.Logger;
  * 
  * @review
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
+@DesignPattern(name = "Adapter", participants = {"Client"})
 public class StaticDataServlet extends AbstractServlet {
 
 	Logger log = Logger.getLogger(StaticDataServlet.class.getName());

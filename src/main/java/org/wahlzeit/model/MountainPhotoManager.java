@@ -12,8 +12,12 @@ package org.wahlzeit.model;
 
 import java.util.logging.Logger;
 
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.MetaatemClassesUtil;
+import org.wahlzeit.utils.DesignPattern;
 
+@DesignPattern(name = "Singleton (classic initialization)", participants = {""})
+@DesignPattern(name = "Flyweight", participants = {"Flyweight Factory"})
 public class MountainPhotoManager extends PhotoManager {
 	
 	

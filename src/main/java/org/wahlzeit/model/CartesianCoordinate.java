@@ -16,14 +16,13 @@ import java.util.Map;
 import org.wahlzeit.exceptions.CoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateValueException;
 import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.MetaatemClassesUtil;
 
+@DesignPattern(name = "Value Object", participants = {""})
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
+@DesignPattern(name = "Flyweight", participants = {"Concrete Flyweight"})
 public class CartesianCoordinate extends AbstractCoordinate {
-	
-	/**
-	 * HashMap to make coordinate ValueObject shared
-	 */
-	protected static Map<Integer, CartesianCoordinate> cs = new HashMap<Integer, CartesianCoordinate>();
 	
 	/**
 	 * Factory method to fetch a CartesianCoordinate. 
@@ -52,7 +51,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return
 	 */
 	private static CartesianCoordinate doGetInstance(double x, double y, double z) {
-		CartesianCoordinate c = new CartesianCoordinate(x, y, z);
+		Coordinate c = new CartesianCoordinate(x, y, z);
 		int hash = c.hashCode();
 		c = cs.get(hash);
 		if(c == null) {
@@ -64,7 +63,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 				}
 			}
 		}
-		return c;
+		return (CartesianCoordinate) c;
 	}
 	
 	

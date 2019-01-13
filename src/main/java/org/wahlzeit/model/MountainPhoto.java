@@ -11,11 +11,15 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.model.Photo;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.MetaatemClassesUtil;
 import com.googlecode.objectify.annotation.Subclass;
 
 
 @Subclass
+@DesignPattern(name = "Abstract Factory", participants = {"Concrete Product"})
+@DesignPattern(name = "Factory Method", participants = {"Concrete Product"})
+@DesignPattern(name = "Flyweight", participants = {"Concrete Flyweight"})
 public class MountainPhoto extends Photo {
 	
 	

@@ -22,6 +22,7 @@ package org.wahlzeit.servlets;
 
 import org.wahlzeit.agents.AgentManager;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +34,7 @@ import java.util.logging.Logger;
 /**
  * A servlet class for asynchronous ("agent") tasks.
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class AgentServlet extends HttpServlet {
 
 	private static Logger log = Logger.getLogger(AgentServlet.class.getName());

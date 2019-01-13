@@ -25,6 +25,7 @@ import org.wahlzeit.model.ModelConfig;
 import org.wahlzeit.model.PhotoFilter;
 import org.wahlzeit.model.Tags;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;
 
@@ -35,6 +36,7 @@ import java.util.Map;
  * Typically, this means an external link points to the site.
  * Example: www.wahlzeit.com/filter?userName=laura
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class FilterPhotosPageHandler extends AbstractWebPageHandler {
 
 	/**

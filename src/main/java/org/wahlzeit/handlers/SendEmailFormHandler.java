@@ -30,6 +30,7 @@ import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.mailing.EmailService;
 import org.wahlzeit.services.mailing.EmailServiceManager;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
@@ -38,6 +39,7 @@ import java.util.logging.Logger;
 /**
  * A handler class for a specific web form.
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class SendEmailFormHandler extends AbstractWebFormHandler {
 
 	/**

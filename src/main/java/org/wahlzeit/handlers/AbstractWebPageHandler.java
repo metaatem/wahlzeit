@@ -26,12 +26,14 @@ import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.ConfigDir;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.webparts.WebPart;
 
 /**
  * A superclass for handling web pages.
  */
+@DesignPattern(name = "Template Method", participants = {"Abstract Class"})
 public abstract class AbstractWebPageHandler extends AbstractWebPartHandler implements WebPageHandler {
 
 	/**

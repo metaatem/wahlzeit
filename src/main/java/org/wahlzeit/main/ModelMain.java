@@ -34,6 +34,7 @@ import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.persistence.DatastoreAdapter;
 import org.wahlzeit.model.persistence.ImageStorage;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -45,6 +46,7 @@ import java.util.logging.Logger;
 /**
  * A single-threaded Main class with database connection. Can be used by tools that don't want to start a server.
  */
+@DesignPattern(name = "Abstract Factory", participants = {"Client"})
 public abstract class ModelMain extends AbstractMain {
 
 	private static final Logger log = Logger.getLogger(ModelMain.class.getName());

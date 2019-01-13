@@ -27,6 +27,7 @@ import org.wahlzeit.model.PhotoSize;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
@@ -35,6 +36,7 @@ import java.util.logging.Logger;
 /**
  * A handler class for a specific web form.
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class SetOptionsFormHandler extends AbstractWebFormHandler {
 
 	/**

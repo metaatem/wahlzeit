@@ -16,14 +16,13 @@ import java.util.Map;
 import org.wahlzeit.exceptions.CoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateValueException;
 import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.MetaatemClassesUtil;
 
+@DesignPattern(name = "Value Object", participants = {""})
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
+@DesignPattern(name = "Flyweight", participants = {"Concrete Flyweight"})
 public class CylindricalCoordinate extends AbstractCoordinate {
-	
-	/**
-	 * HashMap to make coordinate ValueObject shared
-	 */
-	protected static Map<Integer, CylindricalCoordinate> cs = new HashMap<Integer, CylindricalCoordinate>();
 	
 	
 	/**
@@ -53,7 +52,7 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 	 * @return
 	 */
 	private static CylindricalCoordinate doGetInstance(double radius, double phi, double z) {
-		CylindricalCoordinate c = new CylindricalCoordinate(radius, phi, z);
+		Coordinate c = new CylindricalCoordinate(radius, phi, z);
 		int hash = c.hashCode();
 		c = cs.get(hash);
 		if(c == null) {
@@ -65,7 +64,7 @@ public class CylindricalCoordinate extends AbstractCoordinate {
 				}
 			}
 		}
-		return c;
+		return (CylindricalCoordinate) c;
 	}
 	
 	/**

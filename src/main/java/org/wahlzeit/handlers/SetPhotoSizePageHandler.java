@@ -25,6 +25,7 @@ import org.wahlzeit.model.Client;
 import org.wahlzeit.model.ModelConfig;
 import org.wahlzeit.model.PhotoSize;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.webparts.WebPart;
 
@@ -34,6 +35,7 @@ import java.util.Map;
 /**
  * A handler class for a specific web page.
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class SetPhotoSizePageHandler extends AbstractWebPageHandler {
 
 	/**

@@ -25,6 +25,7 @@ import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.Session;
 import org.wahlzeit.services.SessionManager;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;
 
@@ -43,6 +44,7 @@ import java.util.logging.Logger;
 /**
  * A servlet class.
  */
+@DesignPattern(name = "Template Method", participants = {"Abstract Class"})
 public abstract class AbstractServlet extends HttpServlet {
 
 	private static final Logger log = Logger.getLogger(AbstractServlet.class.getName());

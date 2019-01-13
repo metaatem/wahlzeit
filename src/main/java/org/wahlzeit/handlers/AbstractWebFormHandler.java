@@ -23,6 +23,7 @@ package org.wahlzeit.handlers;
 import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
@@ -32,6 +33,7 @@ import java.util.logging.Logger;
 /**
  * A superclass for handling forms.
  */
+@DesignPattern(name = "Template Method", participants = {"Abstract Class"})
 public abstract class AbstractWebFormHandler extends AbstractWebPartHandler implements WebFormHandler {
 
 	private static final Logger log = Logger.getLogger(AbstractWebFormHandler.class.getName());

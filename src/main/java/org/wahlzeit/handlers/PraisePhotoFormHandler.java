@@ -27,6 +27,7 @@ import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;
 
@@ -37,6 +38,7 @@ import java.util.logging.Logger;
 /**
  * A handler class for a specific web form.
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class PraisePhotoFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(PraisePhotoFormHandler.class.getName());

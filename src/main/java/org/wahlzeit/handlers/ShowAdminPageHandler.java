@@ -28,6 +28,7 @@ import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;
 import org.wahlzeit.webparts.Writable;
@@ -38,6 +39,7 @@ import java.util.logging.Logger;
 /**
  * A handler class for a specific web page.
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class ShowAdminPageHandler extends AbstractWebPageHandler implements WebFormHandler {
 
 	private static Logger log = Logger.getLogger(ShowAdminPageHandler.class.getName());

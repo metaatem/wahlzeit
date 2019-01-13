@@ -25,6 +25,7 @@ import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.webparts.WebPart;
 import org.wahlzeit.webparts.Writable;
@@ -33,6 +34,7 @@ import org.wahlzeit.webparts.WritableList;
 /**
  * A handler class for a specific web page.
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class ShowUserHomePageHandler extends AbstractWebPageHandler {
 
 	/**

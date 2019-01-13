@@ -18,11 +18,17 @@ import org.wahlzeit.exceptions.CoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateValueException;
 import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.MetaatemClassesUtil;
 
-
+@DesignPattern(name = "Template Method", participants = {"Abstract Class"})
+@DesignPattern(name = "Flyweight", participants = {"Flyweight Factory, Flyweight"})
 public abstract class AbstractCoordinate implements Coordinate {
 	
+	/**
+	 * HashMap to make coordinate ValueObject shared
+	 */
+	protected static Map<Integer, Coordinate> cs = new HashMap<Integer, Coordinate>();
 	
 	/**
 	 * Converts cylindrical coordinate into cartesian coordinate

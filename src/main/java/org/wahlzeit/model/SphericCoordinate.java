@@ -16,14 +16,13 @@ import java.util.Map;
 import org.wahlzeit.exceptions.CoordinateException;
 import org.wahlzeit.exceptions.InvalidCoordinateValueException;
 import org.wahlzeit.exceptions.UnknownCoordinateTypeException;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.MetaatemClassesUtil;
 
+@DesignPattern(name = "Value Object", participants = {""})
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
+@DesignPattern(name = "Flyweight", participants = {"Concrete Flyweight"})
 public class SphericCoordinate extends AbstractCoordinate{
-	
-	/**
-	 * HashMap to make coordinate ValueObject shared
-	 */
-	protected static Map<Integer, SphericCoordinate> cs = new HashMap<Integer, SphericCoordinate>();
 	
 	/**
 	 * Factory method to fetch a SphericCoordinate. 
@@ -52,7 +51,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * @return
 	 */
 	private static SphericCoordinate doGetInstance(double radius, double theta, double phi) {
-		SphericCoordinate c = new SphericCoordinate(radius, theta, phi);
+		Coordinate c = new SphericCoordinate(radius, theta, phi);
 		int hash = c.hashCode();
 		c = cs.get(hash);
 		if(c == null) {
@@ -64,7 +63,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 				}
 			}
 		}
-		return c;
+		return (SphericCoordinate) c;
 	}
 	
 	/**
@@ -192,16 +191,25 @@ public class SphericCoordinate extends AbstractCoordinate{
 		return c == this;
 	}
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public String toString() {
 		return getClass().getName() + "@" + "{x: " + this.radius + ", y: " + this.theta + ", z: " + this.phi + "}";
 	}
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public int hashCode() {
 		return this.toString().hashCode();
 	}
 	
+	/**
+	 * Obvious
+	 */
 	@Override
 	public SphericCoordinate clone() {
 		return this;

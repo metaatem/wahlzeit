@@ -9,6 +9,7 @@ import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
  * When a user signs in with its Google account, this handler assures that a Wahlzeit user exists for the Google user.
  * If not {@link LoginFormHandler} creates one.
  */
+@DesignPattern(name = "Template Method", participants = {"Concrete Class"})
 public class LoginFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(LoginFormHandler.class.getName());

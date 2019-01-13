@@ -14,8 +14,11 @@ import java.util.logging.Logger;
 
 import org.wahlzeit.exceptions.PhotoFactoryException;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.MetaatemClassesUtil;
 
+@DesignPattern(name = "Abstract Factory", participants = {"Concrete Factory"})
+@DesignPattern(name = "Factory Method", participants = {"Concrete Creator"})
 public class MountainPhotoFactory extends PhotoFactory {
 	
 	private static final Logger log = Logger.getLogger(MountainPhotoFactory.class.getName());

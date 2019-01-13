@@ -22,12 +22,16 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.exceptions.PhotoFactoryException;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPattern;
 
 import java.util.logging.Logger;
 
 /**
  * An Abstract Factory for creating photos and related objects.
  */
+@DesignPattern(name = "Singleton (dynamic initialization)", participants = {""} )
+@DesignPattern(name = "Abstract Factory", participants = {"Abstract Factory"})
+@DesignPattern(name = "Factory Method", participants = {"Creator"})
 public class PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());
