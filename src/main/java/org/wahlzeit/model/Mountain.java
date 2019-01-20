@@ -14,63 +14,38 @@ import org.wahlzeit.utils.MetaatemClassesUtil;
 
 public class Mountain {
 	
-	/**
-	 * Instance variables
-	 */
-	private String mName;
-	private double mHeight;
+	private MountainType mountainType;
+	private MountainId mountainId;
 	
 	/**
 	 * Constructor 
 	 * @param mName
 	 * @param mHeight
 	 */
-	public Mountain(String mName, double mHeight) {
-		MetaatemClassesUtil.assertName(mName);
-		MetaatemClassesUtil.assertHeight(mHeight);
+	public Mountain(MountainType mType, MountainId mId) {
+		MetaatemClassesUtil.assertMountainType(mType);
+		MetaatemClassesUtil.assertNotNull(mId);
 		
-		this.mName = mName;
-		this.mHeight = mHeight;
+		this.mountainType = mType;
+		this.mountainId = mId;
 	}
 	
-	/**
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 * @return
-	 */
-	public String getMountainName() {
-		return this.mName;
+	public void setType(MountainType mountainType) {
+		this.mountainType = mountainType;
 	}
 	
-	/**
-	 * @MethodType get
-	 * @MethodProperty primitive
-	 * @return
-	 */
-	public double getMountainHeight() {
-		return this.mHeight;
+	public void setId(MountainId mountainId) {
+		this.mountainId = mountainId;
 	}
 	
-	/**
-	 * @MethodType set
-	 * @MethodProperty primitve
-	 * @param mName
-	 */
-	public void setMountainName(String mName) {
-		MetaatemClassesUtil.assertName(mName);
-		
-		this.mName = mName;
+	public MountainType getType() {
+		return this.mountainType;
 	}
 	
-	/**
-	 * @MethodType set
-	 * @MethodProperty primitive
-	 * @param mHeight
-	 */
-	public void setMountainHeight(int mHeight) {
-		MetaatemClassesUtil.assertHeight(mHeight);
-		
-		this.mHeight = mHeight;
+	public MountainId getId() {
+		return this.mountainId;
 	}
+	
+	
 	
 }

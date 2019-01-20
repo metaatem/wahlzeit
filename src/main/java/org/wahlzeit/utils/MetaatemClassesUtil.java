@@ -1,6 +1,7 @@
 package org.wahlzeit.utils;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.wahlzeit.exceptions.InvalidCoordinateException;
@@ -11,6 +12,7 @@ import org.wahlzeit.model.Coordinate;
 import org.wahlzeit.model.CoordinateType;
 import org.wahlzeit.model.CylindricalCoordinate;
 import org.wahlzeit.model.Mountain;
+import org.wahlzeit.model.MountainType;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.SphericCoordinate;
 
@@ -193,8 +195,22 @@ public class MetaatemClassesUtil {
 	
 	public static void assertMountain(Mountain mountain) {
 		assertNotNull(mountain);
-		assertName(mountain.getMountainName());
-		assertHeight(mountain.getMountainHeight());
+		assertNotNull(mountain.getId());
+		assertMountainType(mountain.getType());
+	}
+	
+	public static void assertMountainType(MountainType mountainType) {
+		assertName(mountainType.getName());
+		assertHeight(mountainType.getHeight());
+		
+		if(mountainType.isSubtype()) {
+			assertMountainType(mountainType.getSuperType());
+		}
+		
+		Iterator<MountainType> iterator = mountainType.getSubTypeIterator();
+		while(iterator.hasNext()) {
+			assertMountainType(iterator.next());
+		}
 	}
 	
 	public static void assertName(String name) {

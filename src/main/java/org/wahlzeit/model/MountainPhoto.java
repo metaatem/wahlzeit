@@ -11,6 +11,7 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.MountainManager;
 import org.wahlzeit.utils.DesignPattern;
 import org.wahlzeit.utils.MetaatemClassesUtil;
 import com.googlecode.objectify.annotation.Subclass;
@@ -30,7 +31,7 @@ public class MountainPhoto extends Photo {
 	 */
 	public MountainPhoto() {
 		super();
-		this.mount = new Mountain("Mount Default", 4711);
+		this.mount = MountainManager.getInstance().createMountain("Mount Default");
 	}
 
 	/**
@@ -41,7 +42,7 @@ public class MountainPhoto extends Photo {
 		
 		MetaatemClassesUtil.assertPhotoId(myId);
 		
-		this.mount = new Mountain("Mount Default", 4711);
+		this.mount = MountainManager.getInstance().createMountain("Mount Default");
 	}
 	
 	
