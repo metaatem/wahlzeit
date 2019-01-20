@@ -15,9 +15,11 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.runner.RunWith;
 import org.wahlzeit.model.MountainTypeTest;
 import org.wahlzeit.model.MountainManagerTest;
+import org.wahlzeit.model.MountainTest;
+
 
 
 @RunWith(JUnitPlatform.class)
-@SelectClasses({ MountainTypeTest.class, MountainManagerTest.class})
+@SelectClasses({ MountainTypeTest.class, MountainManagerTest.class, MountainTest.class})
 class MountainValueTypeTests {
 }

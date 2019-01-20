@@ -12,47 +12,56 @@ package org.wahlzeit.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.wahlzeit.model.MountainManager;
 
 public class MountainManagerTest {
 	
+	private MountainManager mm;
 	
-	@Test
-	void testGetInstance() {
-		assertNotNull(MountainManager.getInstance());
+	@BeforeEach
+	public void init() {
+		mm = MountainManager.getInstance();
 	}
 	
 	@Test
-	void testPredefMountain1() {
-		MountainManager.getInstance();
-		assertTrue(true);
-	}
-	
-	@Test 
-	void testPredefMountain2() {
-		assertTrue(true);
-	}
-	
-	@Test 
-	void testPredefMountain3() {
-		assertTrue(true);
-	}
-	
-	@Test 
-	void testPredefMountain4() {
-		assertTrue(true);
+	public void testGetInstance() {
+		assertNotNull(mm);
 	}
 	
 	@Test
-	void testGetMountainType() {
-		assertTrue(true);
+	public void testGetPredefMountainTypes() {
+		MountainType mt = mm.getMountainType("Mount Default");
+		assertNotNull(mt);
+		mt = mm.getMountainType("Mount Everest");
+		assertNotNull(mt);
+		mt = mm.getMountainType("K2");
+		assertNotNull(mt);
+		mt = mm.getMountainType("Kangchenjunga");
+		assertNotNull(mt);
 	}
 	
 	@Test
-	void testGetMountain() {
-		assertTrue(true);
+	public void testCreateMountain() {
+		Mountain mt = mm.createMountain(new MountainType("Test Mountain", 1111));
+		assertNotNull(mt);
 	}
 	
+	@Test
+	public void testGetMountain() {
+		Mountain mt = mm.createMountain(new MountainType("Test Mountain", 1111));
+		MountainId mId = mt.getId();
+		
+		assertNotNull(mm.getMountain(mId));
+	}
+	
+	@Test
+	public void testAddMountainType() {
+		mm.addMountainType(new MountainType("Test Mountain", 1111));
+		assertNotNull(mm.getMountainType("Test Mountain"));
+	}
+	
+	
+
 }

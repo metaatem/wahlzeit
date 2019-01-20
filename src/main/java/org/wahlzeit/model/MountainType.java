@@ -41,6 +41,9 @@ public class MountainType {
 				String name, int height) {
 		
 		this.superType = superType;
+		for( MountainType st : subTypes) {
+			st.setSuperType(this);
+		}
 		this.subTypes = subTypes;
 		this.name = name;
 		this.height = height;

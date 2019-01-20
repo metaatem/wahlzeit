@@ -37,10 +37,10 @@ public class MountainManager extends ObjectManager{
 	
 	
 	public MountainManager() {
-		/*mountainTypeCache.put("Mount Default", new MountainType("Mount Default", 4711));
-		mountainTypeCache.put("Mount Everest", new MountainType("Mount Everest", 8848));
-		mountainTypeCache.put("K2", new MountainType("K2", 8611));
-		mountainTypeCache.put("Kangchenjunga", new MountainType("Kangchenjunga", 8586));*/
+		this.mountainTypeCache.put("Mount Default", new MountainType("Mount Default", 4711));
+		this.mountainTypeCache.put("Mount Everest", new MountainType("Mount Everest", 8848));
+		this.mountainTypeCache.put("K2", new MountainType("K2", 8611));
+		this.mountainTypeCache.put("Kangchenjunga", new MountainType("Kangchenjunga", 8586));
 	}
 	
 	
@@ -48,27 +48,32 @@ public class MountainManager extends ObjectManager{
 		return instance;
 	}
 	
-	public Mountain createMountain(String mountainTypeName) {
-		assertIsValidMountainType(mountainTypeName);
-		MountainType mt = getMountainType(mountainTypeName);
-		Mountain result = mt.createInstance();
+	public Mountain createMountain(MountainType mt) {
+		
+		MountainType query = getMountainType(mt.toString());
+		
+		if(query == null) {
+			mountainTypeCache.put(mt.toString(), mt);
+			query = mt;
+		}
+		
+		Mountain result = query.createInstance();
 		mountainCache.put(result.getId(), result);
+		
 		return result;
 	}
 	
-	public MountainType getMountainType(String mountainTypeName) {
-		return mountainTypeCache.get(mountainTypeName);
-	}
+	
 	
 	public Mountain getMountain(MountainId mountainId) {
 		return mountainCache.get(mountainId);
 	}
-
 	
+	public void addMountainType(MountainType mt) {
+		mountainTypeCache.put(mt.getName(), mt);
+	}
 	
-	private void assertIsValidMountainType(String mountainTypeName){
-		if(mountainTypeCache.get(mountainTypeName) == null) {
-			throw new IllegalArgumentException("MountainType does not exist");
-		}
+	public MountainType getMountainType(String mountainTypeName) {
+		return mountainTypeCache.get(mountainTypeName);
 	}
 }

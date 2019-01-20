@@ -10,31 +10,44 @@
 
 package org.wahlzeit.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
 
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
 
 public class MountainTypeTest {
 	
-	private Mountain mountain;
 	
 	private MountainType mt_solo;
+	
 	private MountainType mt_super;
 	
 	private MountainType mt_middle_empty;
-	private MountainType mt_middle_filled;
+	
 	
 	private MountainType mt_sub1;
 	private MountainType mt_sub2;
 	private MountainType mt_sub3;
 	
-	@Before
-	public void setUp() {
+	
+	private MountainType mt_middle_filled;
+	
+	/**
+	 * @Before Doesn't work for some reason in this test.
+	 * It worked the whole time, and in other classes as 
+	 * CartesianCoordinateTest the @Before works as well, no idea 
+	 * why not here. 
+	 * That's why I initialize variables in the tests.
+	 */
+	@BeforeEach
+	public void init() {
 		// Type without superType or subTypes 
 		mt_solo = new MountainType("Solo type", 1234);
 		
@@ -54,61 +67,65 @@ public class MountainTypeTest {
 	}
 	
 	@Test
-	void testGetName() {
-		System.out.println(mt_middle_filled.getName());
-		assertEquals(mt_middle_filled.getName(), "Middle filled");
+	public void testGetName() {
+		//MountainType mt_super = new MountainType("Super", 5678);
+		assertEquals(mt_solo.getName(), "Solo type");
+		//assertEquals(mt_middle_filled.getName(), "Middle filled");
 	}
 	
 	@Test
-	void testGetHeight() {
-		assertEquals(mt_middle_filled.getHeight(), 9999);
+	public void testGetHeight() {
+		// Mountai3nType mt_super = new MountainType("Super", 5678);
+		assertEquals(mt_solo.getHeight(), 1234);
 	}
 	
 	@Test
-	void testGetSuperType() {
-		MountainType smt = mt_middle_filled.getSuperType();
-		assertEquals(smt.getName(), "Super");
+	public void testGetSuperType() {
+		assertNotNull(mt_middle_filled.getSuperType());
 	}
-	
-	/*@Test
-	void testGetNoSuperType() {
-		MountainType mt = mt_middle_empty.getSuperType();
-		assertThrows(NullPointerException.class, mt.getName());
-	}*/
 	
 	@Test 
 	void testSetSuperType() {
-		assertTrue(true);
+		mt_middle_empty.setSuperType(mt_super);
+		assertNotNull(mt_middle_empty.getSuperType());
 	}
 	
 	@Test
-	void testGetSubtypeIterator() {
-		Iterator it = (Iterator) mt_middle_filled.getSubTypeIterator();
-		assertNotNull(it);
+	public void testGetSubtypeIterator() {
+		Iterator<MountainType> iter = mt_middle_filled.getSubTypeIterator();
+		assertNotNull(iter);
 	}
 	
 	@Test
-	void testAddSubTypes() {
-		assertTrue(true);
+	public void testAddSubTypes() {
+		mt_middle_empty.addSubType(mt_sub1);
+		Iterator<MountainType> iter = mt_middle_empty.getSubTypeIterator();
+		assertTrue(iter.hasNext());
 	}
 	
 	@Test
-	void testAddSuperType(){
-		assertTrue(true);
+	public void testHasInstance() {
+		Mountain m1 = new Mountain(mt_middle_filled);
+		Mountain m2 = new Mountain(mt_solo);
+		
+		assertTrue(mt_middle_filled.hasInstance(m1));
+		assertFalse(mt_middle_filled.hasInstance(m2));
 	}
 	
 	@Test
-	void testHasInstance() {
-		assertTrue(true);
+	public void testIsSubtype() {
+		assertTrue(mt_sub1.isSubtype());
+		assertTrue(mt_sub2.isSubtype());
+		assertTrue(mt_sub3.isSubtype());
+		assertFalse(mt_solo.isSubtype());
 	}
 	
 	@Test
-	void testIsSubtype() {
-		assertTrue(true);
-	}
-	
-	@Test
-	void testCreateInstance() {
-		assertTrue(true);
+	public void testCreateInstance() {
+		Mountain m1 = mt_middle_filled.createInstance();
+		
+		assertNotNull(m1);
+		assertEquals(m1.getType().getName(), "Middle filled");
+		assertEquals(m1.getType().getHeight(), 9999);
 	}
 }

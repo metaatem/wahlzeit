@@ -196,10 +196,10 @@ public class MetaatemClassesUtil {
 	public static void assertMountain(Mountain mountain) {
 		assertNotNull(mountain);
 		assertNotNull(mountain.getId());
-		assertMountainType(mountain.getType());
+		assertNotNull(mountain.getType());
 	}
 	
-	public static void assertMountainType(MountainType mountainType) {
+	/*public static void assertMountainType(MountainType mountainType) {
 		assertName(mountainType.getName());
 		assertHeight(mountainType.getHeight());
 		
@@ -211,7 +211,7 @@ public class MetaatemClassesUtil {
 		while(iterator.hasNext()) {
 			assertMountainType(iterator.next());
 		}
-	}
+	}*/
 	
 	public static void assertName(String name) {
 		assertNotNull(name);

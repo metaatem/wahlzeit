@@ -22,15 +22,25 @@ public class Mountain {
 	 * @param mName
 	 * @param mHeight
 	 */
-	public Mountain(MountainType mType, MountainId mId) {
-		MetaatemClassesUtil.assertMountainType(mType);
-		MetaatemClassesUtil.assertNotNull(mId);
+	
+	public Mountain(MountainType mountainType, MountainId mountainId) {
+		MetaatemClassesUtil.assertNotNull(mountainType);
+		MetaatemClassesUtil.assertNotNull(mountainId);
 		
-		this.mountainType = mType;
-		this.mountainId = mId;
+		this.mountainType = mountainType;
+		this.mountainId = mountainId;
+	}
+	
+	public Mountain(MountainType mountainType) {
+		MetaatemClassesUtil.assertNotNull(mountainType);
+		
+		this.mountainType = mountainType;
+		this.mountainId = MountainId.getNextId();
 	}
 	
 	public void setType(MountainType mountainType) {
+		MetaatemClassesUtil.assertNotNull(mountainType);
+		
 		this.mountainType = mountainType;
 	}
 	

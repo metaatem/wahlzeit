@@ -31,7 +31,8 @@ public class MountainPhoto extends Photo {
 	 */
 	public MountainPhoto() {
 		super();
-		this.mount = MountainManager.getInstance().createMountain("Mount Default");
+		
+		this.mount = MountainManager.getInstance().createMountain(new MountainType("Mount Default", 4711));
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class MountainPhoto extends Photo {
 		
 		MetaatemClassesUtil.assertPhotoId(myId);
 		
-		this.mount = MountainManager.getInstance().createMountain("Mount Default");
+		this.mount = MountainManager.getInstance().createMountain(new MountainType("Mount Default", 4711));
 	}
 	
 	
